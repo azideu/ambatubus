@@ -1,5 +1,6 @@
 Imports System
 Imports System.Data
+Imports System.Drawing
 Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
 
@@ -74,5 +75,28 @@ Public Class frmMainMenu
 
     Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
         Application.Exit()
+    End Sub
+
+    ' Button Hover Effects
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdAdmin.MouseEnter, cmdClose.MouseEnter
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdBook Then
+            btn.BackColor = Color.FromArgb(35, 175, 105)
+        ElseIf btn Is cmdAdmin Then
+            btn.BackColor = Color.FromArgb(85, 95, 90)
+        ElseIf btn Is cmdClose Then
+            btn.BackColor = Color.FromArgb(210, 70, 70)
+        End If
+    End Sub
+
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdAdmin.MouseLeave, cmdClose.MouseLeave
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdBook Then
+            btn.BackColor = Color.FromArgb(20, 150, 85)
+        ElseIf btn Is cmdAdmin Then
+            btn.BackColor = Color.FromArgb(65, 75, 70)
+        ElseIf btn Is cmdClose Then
+            btn.BackColor = Color.FromArgb(180, 50, 50)
+        End If
     End Sub
 End Class

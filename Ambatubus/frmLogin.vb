@@ -1,5 +1,6 @@
 Imports System
 Imports System.Data
+Imports System.Drawing
 Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
 
@@ -43,5 +44,24 @@ Public Class frmLogin
     Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
+    End Sub
+
+    ' Button Hover Effects
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdLogin.MouseEnter, cmdCancel.MouseEnter
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdLogin Then
+            btn.BackColor = Color.FromArgb(35, 175, 105)
+        ElseIf btn Is cmdCancel Then
+            btn.BackColor = Color.FromArgb(85, 95, 90)
+        End If
+    End Sub
+
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdLogin.MouseLeave, cmdCancel.MouseLeave
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdLogin Then
+            btn.BackColor = Color.FromArgb(20, 150, 85)
+        ElseIf btn Is cmdCancel Then
+            btn.BackColor = Color.FromArgb(65, 75, 70)
+        End If
     End Sub
 End Class

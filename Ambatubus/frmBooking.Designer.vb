@@ -47,9 +47,12 @@ Partial Class frmBooking
         '
         'lblTitle
         '
+        '
+        'lblTitle
+        '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(20, 80, 40)
+        Me.lblTitle.ForeColor = System.Drawing.Color.White
         Me.lblTitle.Location = New System.Drawing.Point(20, 20)
         Me.lblTitle.Size = New System.Drawing.Size(325, 32)
         Me.lblTitle.Text = "Ticket Booking & Operations"
@@ -69,7 +72,7 @@ Partial Class frmBooking
         Me.grpBookingInput.Controls.Add(Me.lblPriceLabel)
         Me.grpBookingInput.Controls.Add(Me.lblPrice)
         Me.grpBookingInput.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.grpBookingInput.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpBookingInput.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpBookingInput.Location = New System.Drawing.Point(20, 65)
         Me.grpBookingInput.Size = New System.Drawing.Size(320, 395)
         Me.grpBookingInput.Text = "Booking Information"
@@ -78,12 +81,15 @@ Partial Class frmBooking
         '
         Me.lblTicketId.AutoSize = True
         Me.lblTicketId.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblTicketId.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblTicketId.Location = New System.Drawing.Point(15, 30)
         Me.lblTicketId.Text = "Ticket ID"
         '
         'txtTicketId
         '
-        Me.txtTicketId.BackColor = System.Drawing.Color.LightGray
+        Me.txtTicketId.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtTicketId.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtTicketId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtTicketId.Enabled = False
         Me.txtTicketId.Location = New System.Drawing.Point(15, 50)
         Me.txtTicketId.ReadOnly = True
@@ -93,11 +99,15 @@ Partial Class frmBooking
         '
         Me.lblPassengerName.AutoSize = True
         Me.lblPassengerName.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblPassengerName.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblPassengerName.Location = New System.Drawing.Point(15, 85)
         Me.lblPassengerName.Text = "Passenger Name"
         '
         'txtPassengerName
         '
+        Me.txtPassengerName.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtPassengerName.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtPassengerName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPassengerName.Location = New System.Drawing.Point(15, 105)
         Me.txtPassengerName.Size = New System.Drawing.Size(290, 24)
         '
@@ -105,11 +115,15 @@ Partial Class frmBooking
         '
         Me.lblPhone.AutoSize = True
         Me.lblPhone.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblPhone.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblPhone.Location = New System.Drawing.Point(15, 140)
         Me.lblPhone.Text = "Phone Number"
         '
         'txtPhone
         '
+        Me.txtPhone.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtPhone.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPhone.Location = New System.Drawing.Point(15, 160)
         Me.txtPhone.Size = New System.Drawing.Size(290, 24)
         '
@@ -117,12 +131,16 @@ Partial Class frmBooking
         '
         Me.lblDestination.AutoSize = True
         Me.lblDestination.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblDestination.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblDestination.Location = New System.Drawing.Point(15, 195)
         Me.lblDestination.Text = "Select Trip & Schedule"
         '
         'cboRoute
         '
         Me.cboRoute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboRoute.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cboRoute.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.cboRoute.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
         Me.cboRoute.Location = New System.Drawing.Point(15, 215)
         Me.cboRoute.Size = New System.Drawing.Size(290, 25)
         '
@@ -130,20 +148,24 @@ Partial Class frmBooking
         '
         Me.lblSeat.AutoSize = True
         Me.lblSeat.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblSeat.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblSeat.Location = New System.Drawing.Point(15, 250)
         Me.lblSeat.Text = "Select Seat No"
         '
         'txtSeat
         '
+        Me.txtSeat.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtSeat.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtSeat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSeat.Location = New System.Drawing.Point(15, 270)
         Me.txtSeat.Size = New System.Drawing.Size(290, 24)
         Me.txtSeat.ReadOnly = True
-        Me.txtSeat.BackColor = System.Drawing.Color.LightGray
         '
         'lblPriceLabel
         '
         Me.lblPriceLabel.AutoSize = True
         Me.lblPriceLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.lblPriceLabel.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblPriceLabel.Location = New System.Drawing.Point(15, 315)
         Me.lblPriceLabel.Text = "Ticket Price:"
         '
@@ -151,14 +173,15 @@ Partial Class frmBooking
         '
         Me.lblPrice.AutoSize = True
         Me.lblPrice.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblPrice.ForeColor = System.Drawing.Color.FromArgb(200, 80, 0)
+        Me.lblPrice.ForeColor = System.Drawing.Color.FromArgb(250, 180, 80)
         Me.lblPrice.Location = New System.Drawing.Point(15, 335)
         Me.lblPrice.Text = "RM 0.00"
         '
         'cmdBook
         '
-        Me.cmdBook.BackColor = System.Drawing.Color.FromArgb(20, 120, 60)
+        Me.cmdBook.BackColor = System.Drawing.Color.FromArgb(20, 150, 85)
         Me.cmdBook.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdBook.FlatAppearance.BorderSize = 0
         Me.cmdBook.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdBook.ForeColor = System.Drawing.Color.White
         Me.cmdBook.Location = New System.Drawing.Point(20, 480)
@@ -168,8 +191,9 @@ Partial Class frmBooking
         '
         'cmdUpdate
         '
-        Me.cmdUpdate.BackColor = System.Drawing.Color.FromArgb(0, 120, 200)
+        Me.cmdUpdate.BackColor = System.Drawing.Color.FromArgb(30, 130, 190)
         Me.cmdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdUpdate.FlatAppearance.BorderSize = 0
         Me.cmdUpdate.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdUpdate.ForeColor = System.Drawing.Color.White
         Me.cmdUpdate.Location = New System.Drawing.Point(195, 480)
@@ -179,8 +203,9 @@ Partial Class frmBooking
         '
         'cmdDelete
         '
-        Me.cmdDelete.BackColor = System.Drawing.Color.FromArgb(200, 50, 50)
+        Me.cmdDelete.BackColor = System.Drawing.Color.FromArgb(180, 50, 50)
         Me.cmdDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdDelete.FlatAppearance.BorderSize = 0
         Me.cmdDelete.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdDelete.ForeColor = System.Drawing.Color.White
         Me.cmdDelete.Location = New System.Drawing.Point(20, 525)
@@ -190,8 +215,9 @@ Partial Class frmBooking
         '
         'cmdClose
         '
-        Me.cmdClose.BackColor = System.Drawing.Color.FromArgb(120, 120, 120)
+        Me.cmdClose.BackColor = System.Drawing.Color.FromArgb(65, 75, 70)
         Me.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdClose.FlatAppearance.BorderSize = 0
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
         Me.cmdClose.Location = New System.Drawing.Point(195, 525)
@@ -207,46 +233,48 @@ Partial Class frmBooking
         Me.grpSeatMap.Controls.Add(Me.lblBusBack)
         Me.grpSeatMap.Controls.Add(Me.pnlSeatGrid)
         Me.grpSeatMap.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.grpSeatMap.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpSeatMap.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpSeatMap.Location = New System.Drawing.Point(360, 65)
         Me.grpSeatMap.Size = New System.Drawing.Size(320, 495)
         Me.grpSeatMap.Text = "Bus Seating Chart"
         '
         'lblBusFront
         '
-        Me.lblBusFront.BackColor = System.Drawing.Color.FromArgb(220, 230, 242)
+        Me.lblBusFront.BackColor = System.Drawing.Color.FromArgb(35, 45, 40)
         Me.lblBusFront.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.lblBusFront.ForeColor = System.Drawing.Color.FromArgb(20, 80, 40)
+        Me.lblBusFront.ForeColor = System.Drawing.Color.FromArgb(100, 220, 150)
         Me.lblBusFront.Location = New System.Drawing.Point(16, 22)
         Me.lblBusFront.Size = New System.Drawing.Size(288, 30)
         Me.lblBusFront.Text = "🚌 DRIVER  |  [ FRONT ]  |  DOOR"
         Me.lblBusFront.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblBusFront.BorderStyle = System.Windows.Forms.BorderStyle.None
         '
         'lblBusBack
         '
-        Me.lblBusBack.BackColor = System.Drawing.Color.FromArgb(220, 220, 220)
+        Me.lblBusBack.BackColor = System.Drawing.Color.FromArgb(35, 40, 38)
         Me.lblBusBack.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.lblBusBack.ForeColor = System.Drawing.Color.Gray
+        Me.lblBusBack.ForeColor = System.Drawing.Color.FromArgb(140, 150, 145)
         Me.lblBusBack.Location = New System.Drawing.Point(16, 450)
         Me.lblBusBack.Size = New System.Drawing.Size(288, 30)
         Me.lblBusBack.Text = "[ BACK / REAR ]"
         Me.lblBusBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblBusBack.BorderStyle = System.Windows.Forms.BorderStyle.None
         '
         'pnlLeftWall
         '
-        Me.pnlLeftWall.BackColor = System.Drawing.Color.DarkGray
+        Me.pnlLeftWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlLeftWall.Location = New System.Drawing.Point(10, 60)
         Me.pnlLeftWall.Size = New System.Drawing.Size(4, 380)
         '
         'pnlRightWall
         '
-        Me.pnlRightWall.BackColor = System.Drawing.Color.DarkGray
+        Me.pnlRightWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlRightWall.Location = New System.Drawing.Point(306, 60)
         Me.pnlRightWall.Size = New System.Drawing.Size(4, 380)
         '
         'pnlSeatGrid
         '
-        Me.pnlSeatGrid.BackColor = System.Drawing.Color.FromArgb(240, 242, 240)
+        Me.pnlSeatGrid.BackColor = System.Drawing.Color.FromArgb(30, 35, 33)
         Me.pnlSeatGrid.Location = New System.Drawing.Point(16, 60)
         Me.pnlSeatGrid.Size = New System.Drawing.Size(288, 380)
         Me.pnlSeatGrid.AutoScroll = True
@@ -256,7 +284,7 @@ Partial Class frmBooking
         '
         Me.grpBookingsGrid.Controls.Add(Me.dgvTickets)
         Me.grpBookingsGrid.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.grpBookingsGrid.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpBookingsGrid.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpBookingsGrid.Location = New System.Drawing.Point(700, 65)
         Me.grpBookingsGrid.Size = New System.Drawing.Size(570, 495)
         Me.grpBookingsGrid.Text = "Active Bookings"
@@ -266,21 +294,43 @@ Partial Class frmBooking
         Me.dgvTickets.AllowUserToAddRows = False
         Me.dgvTickets.AllowUserToDeleteRows = False
         Me.dgvTickets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvTickets.BackgroundColor = System.Drawing.Color.White
+        Me.dgvTickets.BackgroundColor = System.Drawing.Color.FromArgb(35, 42, 38)
         Me.dgvTickets.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvTickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTickets.GridColor = System.Drawing.Color.FromArgb(50, 60, 55)
         Me.dgvTickets.Location = New System.Drawing.Point(15, 25)
         Me.dgvTickets.MultiSelect = False
         Me.dgvTickets.ReadOnly = True
         Me.dgvTickets.RowHeadersVisible = False
         Me.dgvTickets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvTickets.Size = New System.Drawing.Size(540, 455)
+        Dim dgvTixStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvTixStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
+        dgvTixStyle1.ForeColor = System.Drawing.Color.White
+        dgvTixStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        dgvTixStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(20, 110, 60)
+        dgvTixStyle1.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvTickets.ColumnHeadersDefaultCellStyle = dgvTixStyle1
+        Me.dgvTickets.EnableHeadersVisualStyles = False
+        Dim dgvTixStyle2 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvTixStyle2.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        dgvTixStyle2.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        dgvTixStyle2.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        dgvTixStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
+        dgvTixStyle2.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvTickets.DefaultCellStyle = dgvTixStyle2
+        Dim dgvTixStyle3 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvTixStyle3.BackColor = System.Drawing.Color.FromArgb(30, 36, 33)
+        dgvTixStyle3.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        dgvTixStyle3.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        dgvTixStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
+        dgvTixStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvTickets.AlternatingRowsDefaultCellStyle = dgvTixStyle3
         '
         'frmBooking
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(245, 248, 245)
+        Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
         Me.ClientSize = New System.Drawing.Size(1290, 580)
         Me.Controls.Add(Me.grpBookingsGrid)
         Me.Controls.Add(Me.grpSeatMap)

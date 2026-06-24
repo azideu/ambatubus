@@ -43,9 +43,11 @@ Partial Class frmAdmin
         '
         'lblTitle
         '
+        'lblTitle
+        '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(20, 80, 40)
+        Me.lblTitle.ForeColor = System.Drawing.Color.White
         Me.lblTitle.Location = New System.Drawing.Point(20, 20)
         Me.lblTitle.Size = New System.Drawing.Size(326, 32)
         Me.lblTitle.Text = "Bus Schedule Management"
@@ -65,7 +67,7 @@ Partial Class frmAdmin
         Me.grpAdminInput.Controls.Add(Me.lblSeatCapacity)
         Me.grpAdminInput.Controls.Add(Me.txtSeatCapacity)
         Me.grpAdminInput.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.grpAdminInput.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpAdminInput.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpAdminInput.Location = New System.Drawing.Point(20, 65)
         Me.grpAdminInput.Size = New System.Drawing.Size(320, 395)
         Me.grpAdminInput.Text = "Schedule Details"
@@ -74,28 +76,34 @@ Partial Class frmAdmin
         '
         Me.lblTripId.AutoSize = True
         Me.lblTripId.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblTripId.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblTripId.Location = New System.Drawing.Point(15, 30)
         Me.lblTripId.Text = "Trip ID"
         '
         'txtTripId
         '
-        Me.txtTripId.BackColor = System.Drawing.Color.LightGray
+        Me.txtTripId.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtTripId.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtTripId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtTripId.Enabled = False
         Me.txtTripId.Location = New System.Drawing.Point(15, 50)
         Me.txtTripId.ReadOnly = True
         Me.txtTripId.Size = New System.Drawing.Size(290, 24)
         '
-        '
         'lblFrom
         '
         Me.lblFrom.AutoSize = True
         Me.lblFrom.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblFrom.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblFrom.Location = New System.Drawing.Point(15, 85)
         Me.lblFrom.Text = "From (Origin)"
         '
         'cboFrom
         '
         Me.cboFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFrom.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cboFrom.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.cboFrom.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
         Me.cboFrom.Location = New System.Drawing.Point(15, 105)
         Me.cboFrom.Size = New System.Drawing.Size(130, 24)
         '
@@ -103,12 +111,16 @@ Partial Class frmAdmin
         '
         Me.lblTo.AutoSize = True
         Me.lblTo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblTo.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblTo.Location = New System.Drawing.Point(165, 85)
         Me.lblTo.Text = "To (Destination)"
         '
         'cboTo
         '
         Me.cboTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cboTo.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.cboTo.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
         Me.cboTo.Location = New System.Drawing.Point(165, 105)
         Me.cboTo.Size = New System.Drawing.Size(140, 24)
         '
@@ -116,6 +128,7 @@ Partial Class frmAdmin
         '
         Me.lblDeparture.AutoSize = True
         Me.lblDeparture.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblDeparture.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblDeparture.Location = New System.Drawing.Point(15, 140)
         Me.lblDeparture.Text = "Departure Date & Time"
         '
@@ -130,11 +143,15 @@ Partial Class frmAdmin
         '
         Me.lblPriceLabel.AutoSize = True
         Me.lblPriceLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblPriceLabel.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblPriceLabel.Location = New System.Drawing.Point(15, 195)
         Me.lblPriceLabel.Text = "Price (RM)"
         '
         'txtPrice
         '
+        Me.txtPrice.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtPrice.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPrice.Location = New System.Drawing.Point(15, 215)
         Me.txtPrice.Size = New System.Drawing.Size(290, 24)
         '
@@ -142,18 +159,23 @@ Partial Class frmAdmin
         '
         Me.lblSeatCapacity.AutoSize = True
         Me.lblSeatCapacity.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblSeatCapacity.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
         Me.lblSeatCapacity.Location = New System.Drawing.Point(15, 250)
         Me.lblSeatCapacity.Text = "Seat Capacity"
         '
         'txtSeatCapacity
         '
+        Me.txtSeatCapacity.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtSeatCapacity.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtSeatCapacity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSeatCapacity.Location = New System.Drawing.Point(15, 270)
         Me.txtSeatCapacity.Size = New System.Drawing.Size(290, 24)
         '
         'cmdAdd
         '
-        Me.cmdAdd.BackColor = System.Drawing.Color.FromArgb(20, 120, 60)
+        Me.cmdAdd.BackColor = System.Drawing.Color.FromArgb(20, 150, 85)
         Me.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdAdd.FlatAppearance.BorderSize = 0
         Me.cmdAdd.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdAdd.ForeColor = System.Drawing.Color.White
         Me.cmdAdd.Location = New System.Drawing.Point(20, 480)
@@ -163,8 +185,9 @@ Partial Class frmAdmin
         '
         'cmdUpdate
         '
-        Me.cmdUpdate.BackColor = System.Drawing.Color.FromArgb(0, 120, 200)
+        Me.cmdUpdate.BackColor = System.Drawing.Color.FromArgb(30, 130, 190)
         Me.cmdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdUpdate.FlatAppearance.BorderSize = 0
         Me.cmdUpdate.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdUpdate.ForeColor = System.Drawing.Color.White
         Me.cmdUpdate.Location = New System.Drawing.Point(195, 480)
@@ -174,8 +197,9 @@ Partial Class frmAdmin
         '
         'cmdDelete
         '
-        Me.cmdDelete.BackColor = System.Drawing.Color.FromArgb(200, 50, 50)
+        Me.cmdDelete.BackColor = System.Drawing.Color.FromArgb(180, 50, 50)
         Me.cmdDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdDelete.FlatAppearance.BorderSize = 0
         Me.cmdDelete.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdDelete.ForeColor = System.Drawing.Color.White
         Me.cmdDelete.Location = New System.Drawing.Point(20, 525)
@@ -185,8 +209,9 @@ Partial Class frmAdmin
         '
         'cmdClose
         '
-        Me.cmdClose.BackColor = System.Drawing.Color.FromArgb(120, 120, 120)
+        Me.cmdClose.BackColor = System.Drawing.Color.FromArgb(65, 75, 70)
         Me.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdClose.FlatAppearance.BorderSize = 0
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
         Me.cmdClose.Location = New System.Drawing.Point(195, 525)
@@ -194,14 +219,13 @@ Partial Class frmAdmin
         Me.cmdClose.Text = "⬅️ Back to Menu"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
-        '
         'grpAdminGrid
         '
         Me.grpAdminGrid.Controls.Add(Me.lblSearch)
         Me.grpAdminGrid.Controls.Add(Me.txtSearchRoute)
         Me.grpAdminGrid.Controls.Add(Me.dgvSchedules)
         Me.grpAdminGrid.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.grpAdminGrid.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpAdminGrid.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpAdminGrid.Location = New System.Drawing.Point(360, 65)
         Me.grpAdminGrid.Size = New System.Drawing.Size(610, 495)
         Me.grpAdminGrid.Text = "Current Bus Trips & Schedules"
@@ -210,12 +234,16 @@ Partial Class frmAdmin
         '
         Me.lblSearch.AutoSize = True
         Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblSearch.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
         Me.lblSearch.Location = New System.Drawing.Point(15, 25)
         Me.lblSearch.Text = "Search Route:"
         '
         'txtSearchRoute
         '
-        Me.txtSearchRoute.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtSearchRoute.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.txtSearchRoute.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.txtSearchRoute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSearchRoute.Font = New System.Drawing.Font("Segoe UI", 9.5!)
         Me.txtSearchRoute.Location = New System.Drawing.Point(110, 22)
         Me.txtSearchRoute.Size = New System.Drawing.Size(250, 23)
         '
@@ -224,21 +252,43 @@ Partial Class frmAdmin
         Me.dgvSchedules.AllowUserToAddRows = False
         Me.dgvSchedules.AllowUserToDeleteRows = False
         Me.dgvSchedules.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvSchedules.BackgroundColor = System.Drawing.Color.White
+        Me.dgvSchedules.BackgroundColor = System.Drawing.Color.FromArgb(35, 42, 38)
         Me.dgvSchedules.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvSchedules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSchedules.GridColor = System.Drawing.Color.FromArgb(50, 60, 55)
         Me.dgvSchedules.Location = New System.Drawing.Point(15, 55)
         Me.dgvSchedules.MultiSelect = False
         Me.dgvSchedules.ReadOnly = True
         Me.dgvSchedules.RowHeadersVisible = False
         Me.dgvSchedules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvSchedules.Size = New System.Drawing.Size(580, 425)
+        Dim dgvSchedStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvSchedStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
+        dgvSchedStyle1.ForeColor = System.Drawing.Color.White
+        dgvSchedStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        dgvSchedStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(20, 110, 60)
+        dgvSchedStyle1.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvSchedules.ColumnHeadersDefaultCellStyle = dgvSchedStyle1
+        Me.dgvSchedules.EnableHeadersVisualStyles = False
+        Dim dgvSchedStyle2 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvSchedStyle2.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        dgvSchedStyle2.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        dgvSchedStyle2.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        dgvSchedStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
+        dgvSchedStyle2.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvSchedules.DefaultCellStyle = dgvSchedStyle2
+        Dim dgvSchedStyle3 As New System.Windows.Forms.DataGridViewCellStyle()
+        dgvSchedStyle3.BackColor = System.Drawing.Color.FromArgb(30, 36, 33)
+        dgvSchedStyle3.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        dgvSchedStyle3.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        dgvSchedStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
+        dgvSchedStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.dgvSchedules.AlternatingRowsDefaultCellStyle = dgvSchedStyle3
         '
         'frmAdmin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(245, 248, 245)
+        Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
         Me.ClientSize = New System.Drawing.Size(990, 580)
         Me.Controls.Add(Me.grpAdminGrid)
         Me.Controls.Add(Me.cmdClose)

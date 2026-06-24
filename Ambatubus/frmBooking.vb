@@ -160,27 +160,51 @@ Public Class frmBooking
         btn.Margin = New Padding(5, 3, 5, 3)
 
         If bookedSeats.Contains(seatNum) Then
-            ' Booked (Red)
-            btn.BackColor = Color.FromArgb(200, 50, 50)
-            btn.ForeColor = Color.White
+            ' Booked (Muted Dark Grey)
+            btn.BackColor = Color.FromArgb(55, 60, 58)
+            btn.ForeColor = Color.FromArgb(110, 120, 115)
             btn.Enabled = False
+            btn.FlatStyle = FlatStyle.Standard
         Else
-            ' Available (Green)
-            btn.BackColor = Color.FromArgb(20, 120, 60)
+            ' Available (Mint Emerald)
+            btn.BackColor = Color.FromArgb(20, 140, 80)
             btn.ForeColor = Color.White
             btn.FlatStyle = FlatStyle.Flat
             btn.FlatAppearance.BorderSize = 0
 
             ' Keep yellow if currently selected
             If seatNum = selectedSeatNum Then
-                btn.BackColor = Color.FromArgb(240, 200, 20)
+                btn.BackColor = Color.FromArgb(240, 190, 20)
                 btn.ForeColor = Color.Black
             End If
 
             AddHandler btn.Click, AddressOf SeatButton_Click
+            AddHandler btn.MouseEnter, AddressOf SeatButton_MouseEnter
+            AddHandler btn.MouseLeave, AddressOf SeatButton_MouseLeave
         End If
 
         pnlSeatGrid.Controls.Add(btn)
+    End Sub
+
+    Private Sub SeatButton_MouseEnter(sender As Object, e As EventArgs)
+        Dim btn As Button = CType(sender, Button)
+        If btn.BackColor = Color.FromArgb(20, 140, 80) Then
+            btn.BackColor = Color.FromArgb(35, 175, 105)
+        ElseIf btn.BackColor = Color.FromArgb(240, 190, 20) Then
+            btn.BackColor = Color.FromArgb(250, 210, 35)
+        End If
+    End Sub
+
+    Private Sub SeatButton_MouseLeave(sender As Object, e As EventArgs)
+        Dim btn As Button = CType(sender, Button)
+        Dim seatNum As Integer = Convert.ToInt32(btn.Text)
+        If seatNum = selectedSeatNum Then
+            btn.BackColor = Color.FromArgb(240, 190, 20)
+            btn.ForeColor = Color.Black
+        Else
+            btn.BackColor = Color.FromArgb(20, 140, 80)
+            btn.ForeColor = Color.White
+        End If
     End Sub
 
     Private Sub SeatButton_Click(sender As Object, e As EventArgs)
@@ -189,14 +213,14 @@ Public Class frmBooking
 
         ' Reset previously selected yellow button back to green
         For Each ctrl As Control In pnlSeatGrid.Controls
-            If TypeOf ctrl Is Button AndAlso ctrl.Enabled AndAlso ctrl.BackColor = Color.FromArgb(240, 200, 20) Then
-                ctrl.BackColor = Color.FromArgb(20, 120, 60)
+            If TypeOf ctrl Is Button AndAlso ctrl.Enabled AndAlso (ctrl.BackColor = Color.FromArgb(240, 190, 20) OrElse ctrl.BackColor = Color.FromArgb(250, 210, 35)) Then
+                ctrl.BackColor = Color.FromArgb(20, 140, 80)
                 ctrl.ForeColor = Color.White
             End If
         Next
 
         ' Highlight selected button
-        clickedButton.BackColor = Color.FromArgb(240, 200, 20)
+        clickedButton.BackColor = Color.FromArgb(240, 190, 20)
         clickedButton.ForeColor = Color.Black
 
         selectedSeatNum = seatNum
@@ -503,5 +527,32 @@ Public Class frmBooking
 
     Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
         Me.Close()
+    End Sub
+
+    ' Button Hover Effects
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdUpdate.MouseEnter, cmdDelete.MouseEnter, cmdClose.MouseEnter
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdBook Then
+            btn.BackColor = Color.FromArgb(35, 175, 105)
+        ElseIf btn Is cmdUpdate Then
+            btn.BackColor = Color.FromArgb(50, 150, 210)
+        ElseIf btn Is cmdDelete Then
+            btn.BackColor = Color.FromArgb(210, 70, 70)
+        ElseIf btn Is cmdClose Then
+            btn.BackColor = Color.FromArgb(85, 95, 90)
+        End If
+    End Sub
+
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdUpdate.MouseLeave, cmdDelete.MouseLeave, cmdClose.MouseLeave
+        Dim btn As Button = CType(sender, Button)
+        If btn Is cmdBook Then
+            btn.BackColor = Color.FromArgb(20, 150, 85)
+        ElseIf btn Is cmdUpdate Then
+            btn.BackColor = Color.FromArgb(30, 130, 190)
+        ElseIf btn Is cmdDelete Then
+            btn.BackColor = Color.FromArgb(180, 50, 50)
+        ElseIf btn Is cmdClose Then
+            btn.BackColor = Color.FromArgb(65, 75, 70)
+        End If
     End Sub
 End Class
