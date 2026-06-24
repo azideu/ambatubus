@@ -8,10 +8,6 @@ Public Class frmMainMenu
         LoadDashboardData()
     End Sub
 
-    Private Sub frmMainMenu_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-        LoadDashboardData()
-    End Sub
-
     Private Sub LoadDashboardData()
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
