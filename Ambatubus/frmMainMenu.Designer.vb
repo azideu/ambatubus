@@ -23,6 +23,8 @@ Partial Class frmMainMenu
         Me.lblTotalRevenue = New System.Windows.Forms.Label()
         Me.lblTotalRevenueVal = New System.Windows.Forms.Label()
         Me.grpRoutes = New System.Windows.Forms.GroupBox()
+        Me.lblSearch = New System.Windows.Forms.Label()
+        Me.txtSearchRoute = New System.Windows.Forms.TextBox()
         Me.dgvRoutes = New System.Windows.Forms.DataGridView()
         Me.cmdBook = New System.Windows.Forms.Button()
         Me.cmdAdmin = New System.Windows.Forms.Button()
@@ -106,12 +108,27 @@ Partial Class frmMainMenu
         '
         'grpRoutes
         '
+        Me.grpRoutes.Controls.Add(Me.lblSearch)
+        Me.grpRoutes.Controls.Add(Me.txtSearchRoute)
         Me.grpRoutes.Controls.Add(Me.dgvRoutes)
         Me.grpRoutes.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.grpRoutes.ForeColor = System.Drawing.Color.DarkSlateGray
         Me.grpRoutes.Location = New System.Drawing.Point(30, 220)
         Me.grpRoutes.Size = New System.Drawing.Size(740, 250)
         Me.grpRoutes.Text = "Available Malaysian Routes"
+        '
+        'lblSearch
+        '
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblSearch.Location = New System.Drawing.Point(15, 25)
+        Me.lblSearch.Text = "Search Route:"
+        '
+        'txtSearchRoute
+        '
+        Me.txtSearchRoute.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtSearchRoute.Location = New System.Drawing.Point(110, 22)
+        Me.txtSearchRoute.Size = New System.Drawing.Size(250, 23)
         '
         'dgvRoutes
         '
@@ -121,12 +138,12 @@ Partial Class frmMainMenu
         Me.dgvRoutes.BackgroundColor = System.Drawing.Color.White
         Me.dgvRoutes.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvRoutes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvRoutes.Location = New System.Drawing.Point(15, 25)
+        Me.dgvRoutes.Location = New System.Drawing.Point(15, 55)
         Me.dgvRoutes.MultiSelect = False
         Me.dgvRoutes.ReadOnly = True
         Me.dgvRoutes.RowHeadersVisible = False
         Me.dgvRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRoutes.Size = New System.Drawing.Size(710, 210)
+        Me.dgvRoutes.Size = New System.Drawing.Size(710, 180)
         '
         'cmdBook
         '
@@ -196,6 +213,8 @@ Partial Class frmMainMenu
     Friend WithEvents lblTotalRevenue As System.Windows.Forms.Label
     Friend WithEvents lblTotalRevenueVal As System.Windows.Forms.Label
     Friend WithEvents grpRoutes As System.Windows.Forms.GroupBox
+    Friend WithEvents lblSearch As System.Windows.Forms.Label
+    Friend WithEvents txtSearchRoute As System.Windows.Forms.TextBox
     Friend WithEvents dgvRoutes As System.Windows.Forms.DataGridView
     Friend WithEvents cmdBook As System.Windows.Forms.Button
     Friend WithEvents cmdAdmin As System.Windows.Forms.Button

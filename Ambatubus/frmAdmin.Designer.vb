@@ -31,6 +31,8 @@ Partial Class frmAdmin
         Me.cmdDelete = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
         Me.grpAdminGrid = New System.Windows.Forms.GroupBox()
+        Me.lblSearch = New System.Windows.Forms.Label()
+        Me.txtSearchRoute = New System.Windows.Forms.TextBox()
         Me.dgvSchedules = New System.Windows.Forms.DataGridView()
         Me.grpAdminInput.SuspendLayout()
         Me.grpAdminGrid.SuspendLayout()
@@ -173,14 +175,30 @@ Partial Class frmAdmin
         Me.cmdClose.Text = "⬅️ Back to Menu"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
+        '
         'grpAdminGrid
         '
+        Me.grpAdminGrid.Controls.Add(Me.lblSearch)
+        Me.grpAdminGrid.Controls.Add(Me.txtSearchRoute)
         Me.grpAdminGrid.Controls.Add(Me.dgvSchedules)
         Me.grpAdminGrid.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.grpAdminGrid.ForeColor = System.Drawing.Color.DarkSlateGray
         Me.grpAdminGrid.Location = New System.Drawing.Point(360, 65)
         Me.grpAdminGrid.Size = New System.Drawing.Size(610, 495)
         Me.grpAdminGrid.Text = "Current Bus Trips & Schedules"
+        '
+        'lblSearch
+        '
+        Me.lblSearch.AutoSize = True
+        Me.lblSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblSearch.Location = New System.Drawing.Point(15, 25)
+        Me.lblSearch.Text = "Search Route:"
+        '
+        'txtSearchRoute
+        '
+        Me.txtSearchRoute.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtSearchRoute.Location = New System.Drawing.Point(110, 22)
+        Me.txtSearchRoute.Size = New System.Drawing.Size(250, 23)
         '
         'dgvSchedules
         '
@@ -190,12 +208,12 @@ Partial Class frmAdmin
         Me.dgvSchedules.BackgroundColor = System.Drawing.Color.White
         Me.dgvSchedules.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvSchedules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSchedules.Location = New System.Drawing.Point(15, 25)
+        Me.dgvSchedules.Location = New System.Drawing.Point(15, 55)
         Me.dgvSchedules.MultiSelect = False
         Me.dgvSchedules.ReadOnly = True
         Me.dgvSchedules.RowHeadersVisible = False
         Me.dgvSchedules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSchedules.Size = New System.Drawing.Size(580, 455)
+        Me.dgvSchedules.Size = New System.Drawing.Size(580, 425)
         '
         'frmAdmin
         '
@@ -240,6 +258,8 @@ Partial Class frmAdmin
     Friend WithEvents cmdUpdate As System.Windows.Forms.Button
     Friend WithEvents cmdDelete As System.Windows.Forms.Button
     Friend WithEvents cmdClose As System.Windows.Forms.Button
+    Friend WithEvents lblSearch As System.Windows.Forms.Label
+    Friend WithEvents txtSearchRoute As System.Windows.Forms.TextBox
     Friend WithEvents grpAdminGrid As System.Windows.Forms.GroupBox
     Friend WithEvents dgvSchedules As System.Windows.Forms.DataGridView
 End Class

@@ -25,13 +25,19 @@ Partial Class frmBooking
         Me.lblDestination = New System.Windows.Forms.Label()
         Me.cboRoute = New System.Windows.Forms.ComboBox()
         Me.lblSeat = New System.Windows.Forms.Label()
-        Me.cboSeat = New System.Windows.Forms.ComboBox()
+        Me.txtSeat = New System.Windows.Forms.TextBox()
         Me.lblPriceLabel = New System.Windows.Forms.Label()
         Me.lblPrice = New System.Windows.Forms.Label()
         Me.cmdBook = New System.Windows.Forms.Button()
         Me.cmdUpdate = New System.Windows.Forms.Button()
         Me.cmdDelete = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
+        Me.grpSeatMap = New System.Windows.Forms.GroupBox()
+        Me.pnlSeatGrid = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblBusFront = New System.Windows.Forms.Label()
+        Me.lblBusBack = New System.Windows.Forms.Label()
+        Me.pnlLeftWall = New System.Windows.Forms.Panel()
+        Me.pnlRightWall = New System.Windows.Forms.Panel()
         Me.grpBookingsGrid = New System.Windows.Forms.GroupBox()
         Me.dgvTickets = New System.Windows.Forms.DataGridView()
         Me.grpBookingInput.SuspendLayout()
@@ -59,7 +65,7 @@ Partial Class frmBooking
         Me.grpBookingInput.Controls.Add(Me.lblDestination)
         Me.grpBookingInput.Controls.Add(Me.cboRoute)
         Me.grpBookingInput.Controls.Add(Me.lblSeat)
-        Me.grpBookingInput.Controls.Add(Me.cboSeat)
+        Me.grpBookingInput.Controls.Add(Me.txtSeat)
         Me.grpBookingInput.Controls.Add(Me.lblPriceLabel)
         Me.grpBookingInput.Controls.Add(Me.lblPrice)
         Me.grpBookingInput.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
@@ -127,11 +133,12 @@ Partial Class frmBooking
         Me.lblSeat.Location = New System.Drawing.Point(15, 250)
         Me.lblSeat.Text = "Select Seat No"
         '
-        'cboSeat
+        'txtSeat
         '
-        Me.cboSeat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSeat.Location = New System.Drawing.Point(15, 270)
-        Me.cboSeat.Size = New System.Drawing.Size(290, 25)
+        Me.txtSeat.Location = New System.Drawing.Point(15, 270)
+        Me.txtSeat.Size = New System.Drawing.Size(290, 24)
+        Me.txtSeat.ReadOnly = True
+        Me.txtSeat.BackColor = System.Drawing.Color.LightGray
         '
         'lblPriceLabel
         '
@@ -192,13 +199,66 @@ Partial Class frmBooking
         Me.cmdClose.Text = "⬅️ Back to Menu"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
+        'grpSeatMap
+        '
+        Me.grpSeatMap.Controls.Add(Me.pnlLeftWall)
+        Me.grpSeatMap.Controls.Add(Me.pnlRightWall)
+        Me.grpSeatMap.Controls.Add(Me.lblBusFront)
+        Me.grpSeatMap.Controls.Add(Me.lblBusBack)
+        Me.grpSeatMap.Controls.Add(Me.pnlSeatGrid)
+        Me.grpSeatMap.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.grpSeatMap.ForeColor = System.Drawing.Color.DarkSlateGray
+        Me.grpSeatMap.Location = New System.Drawing.Point(360, 65)
+        Me.grpSeatMap.Size = New System.Drawing.Size(320, 495)
+        Me.grpSeatMap.Text = "Bus Seating Chart"
+        '
+        'lblBusFront
+        '
+        Me.lblBusFront.BackColor = System.Drawing.Color.FromArgb(220, 230, 242)
+        Me.lblBusFront.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.lblBusFront.ForeColor = System.Drawing.Color.FromArgb(20, 80, 40)
+        Me.lblBusFront.Location = New System.Drawing.Point(16, 22)
+        Me.lblBusFront.Size = New System.Drawing.Size(288, 30)
+        Me.lblBusFront.Text = "🚌 DRIVER  |  [ FRONT ]  |  DOOR"
+        Me.lblBusFront.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblBusBack
+        '
+        Me.lblBusBack.BackColor = System.Drawing.Color.FromArgb(220, 220, 220)
+        Me.lblBusBack.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblBusBack.ForeColor = System.Drawing.Color.Gray
+        Me.lblBusBack.Location = New System.Drawing.Point(16, 450)
+        Me.lblBusBack.Size = New System.Drawing.Size(288, 30)
+        Me.lblBusBack.Text = "[ BACK / REAR ]"
+        Me.lblBusBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'pnlLeftWall
+        '
+        Me.pnlLeftWall.BackColor = System.Drawing.Color.DarkGray
+        Me.pnlLeftWall.Location = New System.Drawing.Point(10, 60)
+        Me.pnlLeftWall.Size = New System.Drawing.Size(4, 380)
+        '
+        'pnlRightWall
+        '
+        Me.pnlRightWall.BackColor = System.Drawing.Color.DarkGray
+        Me.pnlRightWall.Location = New System.Drawing.Point(306, 60)
+        Me.pnlRightWall.Size = New System.Drawing.Size(4, 380)
+        '
+        'pnlSeatGrid
+        '
+        Me.pnlSeatGrid.BackColor = System.Drawing.Color.FromArgb(240, 242, 240)
+        Me.pnlSeatGrid.Location = New System.Drawing.Point(16, 60)
+        Me.pnlSeatGrid.Size = New System.Drawing.Size(288, 380)
+        Me.pnlSeatGrid.AutoScroll = True
+        Me.pnlSeatGrid.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        '
         'grpBookingsGrid
         '
         Me.grpBookingsGrid.Controls.Add(Me.dgvTickets)
         Me.grpBookingsGrid.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.grpBookingsGrid.ForeColor = System.Drawing.Color.DarkSlateGray
-        Me.grpBookingsGrid.Location = New System.Drawing.Point(360, 65)
-        Me.grpBookingsGrid.Size = New System.Drawing.Size(610, 495)
+        Me.grpBookingsGrid.Location = New System.Drawing.Point(700, 65)
+        Me.grpBookingsGrid.Size = New System.Drawing.Size(570, 495)
         Me.grpBookingsGrid.Text = "Active Bookings"
         '
         'dgvTickets
@@ -214,15 +274,16 @@ Partial Class frmBooking
         Me.dgvTickets.ReadOnly = True
         Me.dgvTickets.RowHeadersVisible = False
         Me.dgvTickets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTickets.Size = New System.Drawing.Size(580, 455)
+        Me.dgvTickets.Size = New System.Drawing.Size(540, 455)
         '
         'frmBooking
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(245, 248, 245)
-        Me.ClientSize = New System.Drawing.Size(990, 580)
+        Me.ClientSize = New System.Drawing.Size(1290, 580)
         Me.Controls.Add(Me.grpBookingsGrid)
+        Me.Controls.Add(Me.grpSeatMap)
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdDelete)
         Me.Controls.Add(Me.cmdUpdate)
@@ -236,6 +297,7 @@ Partial Class frmBooking
         Me.Text = "ambatubus - Bookings Manager"
         Me.grpBookingInput.ResumeLayout(False)
         Me.grpBookingInput.PerformLayout()
+        Me.grpSeatMap.ResumeLayout(False)
         Me.grpBookingsGrid.ResumeLayout(False)
         CType(Me.dgvTickets, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -254,13 +316,19 @@ Partial Class frmBooking
     Friend WithEvents lblDestination As System.Windows.Forms.Label
     Friend WithEvents cboRoute As System.Windows.Forms.ComboBox
     Friend WithEvents lblSeat As System.Windows.Forms.Label
-    Friend WithEvents cboSeat As System.Windows.Forms.ComboBox
+    Friend WithEvents txtSeat As System.Windows.Forms.TextBox
     Friend WithEvents lblPriceLabel As System.Windows.Forms.Label
     Friend WithEvents lblPrice As System.Windows.Forms.Label
     Friend WithEvents cmdBook As System.Windows.Forms.Button
     Friend WithEvents cmdUpdate As System.Windows.Forms.Button
     Friend WithEvents cmdDelete As System.Windows.Forms.Button
     Friend WithEvents cmdClose As System.Windows.Forms.Button
+    Friend WithEvents grpSeatMap As System.Windows.Forms.GroupBox
+    Friend WithEvents pnlSeatGrid As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents lblBusFront As System.Windows.Forms.Label
+    Friend WithEvents lblBusBack As System.Windows.Forms.Label
+    Friend WithEvents pnlLeftWall As System.Windows.Forms.Panel
+    Friend WithEvents pnlRightWall As System.Windows.Forms.Panel
     Friend WithEvents grpBookingsGrid As System.Windows.Forms.GroupBox
     Friend WithEvents dgvTickets As System.Windows.Forms.DataGridView
 End Class

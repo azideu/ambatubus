@@ -13,8 +13,19 @@ Public Class frmAdmin
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
-                Dim query As String = "SELECT TripId As [Trip ID], RouteName As [Route Name], DepartureTime As [Departure Time], Price As [Price (RM)], SeatCapacity As [Seat Capacity] FROM Schedules ORDER BY DepartureTime"
-                Dim da As New SqlDataAdapter(query, conn)
+                Dim query As String = "SELECT TripId As [Trip ID], RouteName As [Route Name], DepartureTime As [Departure Time], Price As [Price (RM)], SeatCapacity As [Seat Capacity] FROM Schedules WHERE 1=1"
+                Dim filter As String = txtSearchRoute.Text.Trim()
+                If Not String.IsNullOrEmpty(filter) Then
+                    query &= " AND RouteName LIKE @Filter"
+                End If
+                query &= " ORDER BY DepartureTime"
+
+                Dim cmd As New SqlCommand(query, conn)
+                If Not String.IsNullOrEmpty(filter) Then
+                    cmd.Parameters.AddWithValue("@Filter", "%" & filter & "%")
+                End If
+
+                Dim da As New SqlDataAdapter(cmd)
                 Dim dt As New DataTable()
                 da.Fill(dt)
                 dgvSchedules.DataSource = dt
@@ -22,6 +33,10 @@ Public Class frmAdmin
         Catch ex As Exception
             MessageBox.Show("Error loading schedules: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub txtSearchRoute_TextChanged(sender As Object, e As EventArgs) Handles txtSearchRoute.TextChanged
+        LoadSchedules()
     End Sub
 
     Private Sub dgvSchedules_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSchedules.CellClick
@@ -58,6 +73,11 @@ Public Class frmAdmin
         Dim capacityVal As Integer
         If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
             MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If dtpDeparture.Value < DateTime.Now.AddHours(1) Then
+            MessageBox.Show("Departure time must be at least 1 hour in the future.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -105,6 +125,11 @@ Public Class frmAdmin
         Dim capacityVal As Integer
         If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
             MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If dtpDeparture.Value < DateTime.Now.AddHours(1) Then
+            MessageBox.Show("Departure time must be at least 1 hour in the future.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
