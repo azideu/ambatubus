@@ -4,7 +4,20 @@ Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
 
 Public Class frmAdmin
+    Private ReadOnly FamousCities As String() = {
+        "Kuala Lumpur", "Penang", "Johor Bahru", "Ipoh", "Malacca",
+        "Kuala Terengganu", "Kuantan", "Alor Setar", "Kota Bharu", "Seremban"
+    }
+
     Private Sub frmAdmin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Populate dropdowns
+        cboFrom.Items.Clear()
+        cboTo.Items.Clear()
+        For Each city In FamousCities
+            cboFrom.Items.Add(city)
+            cboTo.Items.Add(city)
+        Next
+
         LoadSchedules()
         ClearInputs()
     End Sub
@@ -43,7 +56,18 @@ Public Class frmAdmin
         If e.RowIndex >= 0 Then
             Dim row As DataGridViewRow = dgvSchedules.Rows(e.RowIndex)
             txtTripId.Text = row.Cells("Trip ID").Value.ToString()
-            txtRoute.Text = row.Cells("Route Name").Value.ToString()
+
+            ' Parse route string "Origin to Destination"
+            Dim routeName As String = row.Cells("Route Name").Value.ToString()
+            Dim parts As String() = routeName.Split(New String() {" to "}, StringSplitOptions.None)
+            If parts.Length = 2 Then
+                cboFrom.SelectedItem = parts(0)
+                cboTo.SelectedItem = parts(1)
+            Else
+                cboFrom.SelectedIndex = -1
+                cboTo.SelectedIndex = -1
+            End If
+
             dtpDeparture.Value = Convert.ToDateTime(row.Cells("Departure Time").Value)
             txtPrice.Text = Convert.ToDecimal(row.Cells("Price (RM)").Value).ToString("F2")
             txtSeatCapacity.Text = row.Cells("Seat Capacity").Value.ToString()
@@ -52,15 +76,21 @@ Public Class frmAdmin
 
     Private Sub ClearInputs()
         txtTripId.Clear()
-        txtRoute.Clear()
+        cboFrom.SelectedIndex = -1
+        cboTo.SelectedIndex = -1
         dtpDeparture.Value = DateTime.Now.AddDays(1)
         txtPrice.Clear()
         txtSeatCapacity.Text = "40"
     End Sub
 
     Private Sub cmdAdd_Click(sender As Object, e As EventArgs) Handles cmdAdd.Click
-        If String.IsNullOrWhiteSpace(txtRoute.Text) Then
-            MessageBox.Show("Please enter a route description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If cboFrom.SelectedIndex = -1 OrElse cboTo.SelectedIndex = -1 Then
+            MessageBox.Show("Please select both origin and destination cities.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If cboFrom.SelectedItem.ToString() = cboTo.SelectedItem.ToString() Then
+            MessageBox.Show("Origin and destination cities cannot be the same.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -81,6 +111,8 @@ Public Class frmAdmin
             Return
         End If
 
+        Dim routeName As String = $"{cboFrom.SelectedItem} to {cboTo.SelectedItem}"
+
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
@@ -88,7 +120,7 @@ Public Class frmAdmin
                     INSERT INTO Schedules (RouteName, DepartureTime, Price, SeatCapacity) 
                     VALUES (@Route, @DepTime, @Price, @Capacity)"
                 Using cmd As New SqlCommand(insertSql, conn)
-                    cmd.Parameters.AddWithValue("@Route", txtRoute.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Route", routeName)
                     cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
                     cmd.Parameters.AddWithValue("@Price", priceVal)
                     cmd.Parameters.AddWithValue("@Capacity", capacityVal)
@@ -111,8 +143,13 @@ Public Class frmAdmin
             Return
         End If
 
-        If String.IsNullOrWhiteSpace(txtRoute.Text) Then
-            MessageBox.Show("Please enter a route description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If cboFrom.SelectedIndex = -1 OrElse cboTo.SelectedIndex = -1 Then
+            MessageBox.Show("Please select both origin and destination cities.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If cboFrom.SelectedItem.ToString() = cboTo.SelectedItem.ToString() Then
+            MessageBox.Show("Origin and destination cities cannot be the same.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
@@ -132,6 +169,8 @@ Public Class frmAdmin
             MessageBox.Show("Departure time must be at least 1 hour in the future.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+
+        Dim routeName As String = $"{cboFrom.SelectedItem} to {cboTo.SelectedItem}"
 
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
@@ -163,7 +202,7 @@ Public Class frmAdmin
                     SET RouteName = @Route, DepartureTime = @DepTime, Price = @Price, SeatCapacity = @Capacity 
                     WHERE TripId = @TripId"
                 Using cmd As New SqlCommand(updateSql, conn)
-                    cmd.Parameters.AddWithValue("@Route", txtRoute.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Route", routeName)
                     cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
                     cmd.Parameters.AddWithValue("@Price", priceVal)
                     cmd.Parameters.AddWithValue("@Capacity", capacityVal)

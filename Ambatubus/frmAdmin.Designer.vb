@@ -18,8 +18,10 @@ Partial Class frmAdmin
         Me.grpAdminInput = New System.Windows.Forms.GroupBox()
         Me.lblTripId = New System.Windows.Forms.Label()
         Me.txtTripId = New System.Windows.Forms.TextBox()
-        Me.lblRoute = New System.Windows.Forms.Label()
-        Me.txtRoute = New System.Windows.Forms.TextBox()
+        Me.lblFrom = New System.Windows.Forms.Label()
+        Me.cboFrom = New System.Windows.Forms.ComboBox()
+        Me.lblTo = New System.Windows.Forms.Label()
+        Me.cboTo = New System.Windows.Forms.ComboBox()
         Me.lblDeparture = New System.Windows.Forms.Label()
         Me.dtpDeparture = New System.Windows.Forms.DateTimePicker()
         Me.lblPriceLabel = New System.Windows.Forms.Label()
@@ -52,8 +54,10 @@ Partial Class frmAdmin
         '
         Me.grpAdminInput.Controls.Add(Me.lblTripId)
         Me.grpAdminInput.Controls.Add(Me.txtTripId)
-        Me.grpAdminInput.Controls.Add(Me.lblRoute)
-        Me.grpAdminInput.Controls.Add(Me.txtRoute)
+        Me.grpAdminInput.Controls.Add(Me.lblFrom)
+        Me.grpAdminInput.Controls.Add(Me.cboFrom)
+        Me.grpAdminInput.Controls.Add(Me.lblTo)
+        Me.grpAdminInput.Controls.Add(Me.cboTo)
         Me.grpAdminInput.Controls.Add(Me.lblDeparture)
         Me.grpAdminInput.Controls.Add(Me.dtpDeparture)
         Me.grpAdminInput.Controls.Add(Me.lblPriceLabel)
@@ -81,17 +85,32 @@ Partial Class frmAdmin
         Me.txtTripId.ReadOnly = True
         Me.txtTripId.Size = New System.Drawing.Size(290, 24)
         '
-        'lblRoute
         '
-        Me.lblRoute.AutoSize = True
-        Me.lblRoute.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblRoute.Location = New System.Drawing.Point(15, 85)
-        Me.lblRoute.Text = "Route Description"
+        'lblFrom
         '
-        'txtRoute
+        Me.lblFrom.AutoSize = True
+        Me.lblFrom.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblFrom.Location = New System.Drawing.Point(15, 85)
+        Me.lblFrom.Text = "From (Origin)"
         '
-        Me.txtRoute.Location = New System.Drawing.Point(15, 105)
-        Me.txtRoute.Size = New System.Drawing.Size(290, 24)
+        'cboFrom
+        '
+        Me.cboFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFrom.Location = New System.Drawing.Point(15, 105)
+        Me.cboFrom.Size = New System.Drawing.Size(130, 24)
+        '
+        'lblTo
+        '
+        Me.lblTo.AutoSize = True
+        Me.lblTo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblTo.Location = New System.Drawing.Point(165, 85)
+        Me.lblTo.Text = "To (Destination)"
+        '
+        'cboTo
+        '
+        Me.cboTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboTo.Location = New System.Drawing.Point(165, 105)
+        Me.cboTo.Size = New System.Drawing.Size(140, 24)
         '
         'lblDeparture
         '
@@ -246,8 +265,10 @@ Partial Class frmAdmin
     Friend WithEvents grpAdminInput As System.Windows.Forms.GroupBox
     Friend WithEvents lblTripId As System.Windows.Forms.Label
     Friend WithEvents txtTripId As System.Windows.Forms.TextBox
-    Friend WithEvents lblRoute As System.Windows.Forms.Label
-    Friend WithEvents txtRoute As System.Windows.Forms.TextBox
+    Friend WithEvents lblFrom As System.Windows.Forms.Label
+    Friend WithEvents cboFrom As System.Windows.Forms.ComboBox
+    Friend WithEvents lblTo As System.Windows.Forms.Label
+    Friend WithEvents cboTo As System.Windows.Forms.ComboBox
     Friend WithEvents lblDeparture As System.Windows.Forms.Label
     Friend WithEvents dtpDeparture As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblPriceLabel As System.Windows.Forms.Label
