@@ -1,0 +1,189 @@
+Imports System
+Imports System.Data
+Imports Microsoft.Data.SqlClient
+Imports System.Windows.Forms
+
+Public Class frmAdmin
+    Private Sub frmAdmin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadSchedules()
+        ClearInputs()
+    End Sub
+
+    Private Sub LoadSchedules()
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+                Dim query As String = "SELECT TripId As [Trip ID], RouteName As [Route Name], DepartureTime As [Departure Time], Price As [Price (RM)], SeatCapacity As [Seat Capacity] FROM Schedules ORDER BY DepartureTime"
+                Dim da As New SqlDataAdapter(query, conn)
+                Dim dt As New DataTable()
+                da.Fill(dt)
+                dgvSchedules.DataSource = dt
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading schedules: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub dgvSchedules_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSchedules.CellClick
+        If e.RowIndex >= 0 Then
+            Dim row As DataGridViewRow = dgvSchedules.Rows(e.RowIndex)
+            txtTripId.Text = row.Cells("Trip ID").Value.ToString()
+            txtRoute.Text = row.Cells("Route Name").Value.ToString()
+            dtpDeparture.Value = Convert.ToDateTime(row.Cells("Departure Time").Value)
+            txtPrice.Text = Convert.ToDecimal(row.Cells("Price (RM)").Value).ToString("F2")
+            txtSeatCapacity.Text = row.Cells("Seat Capacity").Value.ToString()
+        End If
+    End Sub
+
+    Private Sub ClearInputs()
+        txtTripId.Clear()
+        txtRoute.Clear()
+        dtpDeparture.Value = DateTime.Now.AddDays(1)
+        txtPrice.Clear()
+        txtSeatCapacity.Text = "40"
+    End Sub
+
+    Private Sub cmdAdd_Click(sender As Object, e As EventArgs) Handles cmdAdd.Click
+        If String.IsNullOrWhiteSpace(txtRoute.Text) Then
+            MessageBox.Show("Please enter a route description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim priceVal As Decimal
+        If Not Decimal.TryParse(txtPrice.Text, priceVal) OrElse priceVal <= 0 Then
+            MessageBox.Show("Please enter a valid price greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim capacityVal As Integer
+        If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
+            MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+                Dim insertSql As String = "
+                    INSERT INTO Schedules (RouteName, DepartureTime, Price, SeatCapacity) 
+                    VALUES (@Route, @DepTime, @Price, @Capacity)"
+                Using cmd As New SqlCommand(insertSql, conn)
+                    cmd.Parameters.AddWithValue("@Route", txtRoute.Text.Trim())
+                    cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
+                    cmd.Parameters.AddWithValue("@Price", priceVal)
+                    cmd.Parameters.AddWithValue("@Capacity", capacityVal)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("Bus schedule successfully created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            LoadSchedules()
+            ClearInputs()
+        Catch ex As Exception
+            MessageBox.Show("Failed to create schedule: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub cmdUpdate_Click(sender As Object, e As EventArgs) Handles cmdUpdate.Click
+        Dim tripIdVal As Integer
+        If Not Integer.TryParse(txtTripId.Text, tripIdVal) Then
+            MessageBox.Show("Please select a schedule from the list to update.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If String.IsNullOrWhiteSpace(txtRoute.Text) Then
+            MessageBox.Show("Please enter a route description.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim priceVal As Decimal
+        If Not Decimal.TryParse(txtPrice.Text, priceVal) OrElse priceVal <= 0 Then
+            MessageBox.Show("Please enter a valid price greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim capacityVal As Integer
+        If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
+            MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+
+                ' Prevent updating capacity below current booked numbers
+                Dim checkCmd As New SqlCommand("SELECT COUNT(*) FROM Bookings WHERE TripId = @TripId", conn)
+                checkCmd.Parameters.AddWithValue("@TripId", tripIdVal)
+                Dim bookedCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+
+                If capacityVal < bookedCount Then
+                    MessageBox.Show($"Cannot decrease capacity below current bookings ({bookedCount} seats booked).", "Capacity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return
+                End If
+
+                ' Prevent updating capacity below maximum booked seat number
+                If bookedCount > 0 Then
+                    Dim maxSeatCmd As New SqlCommand("SELECT MAX(SeatNumber) FROM Bookings WHERE TripId = @TripId", conn)
+                    maxSeatCmd.Parameters.AddWithValue("@TripId", tripIdVal)
+                    Dim maxSeat As Integer = Convert.ToInt32(maxSeatCmd.ExecuteScalar())
+                    If capacityVal < maxSeat Then
+                        MessageBox.Show($"Cannot decrease capacity to {capacityVal} because seat {maxSeat} is already booked.", "Capacity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Return
+                    End If
+                End If
+
+                Dim updateSql As String = "
+                    UPDATE Schedules 
+                    SET RouteName = @Route, DepartureTime = @DepTime, Price = @Price, SeatCapacity = @Capacity 
+                    WHERE TripId = @TripId"
+                Using cmd As New SqlCommand(updateSql, conn)
+                    cmd.Parameters.AddWithValue("@Route", txtRoute.Text.Trim())
+                    cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
+                    cmd.Parameters.AddWithValue("@Price", priceVal)
+                    cmd.Parameters.AddWithValue("@Capacity", capacityVal)
+                    cmd.Parameters.AddWithValue("@TripId", tripIdVal)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("Bus schedule successfully updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            LoadSchedules()
+            ClearInputs()
+        Catch ex As Exception
+            MessageBox.Show("Failed to update schedule: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub cmdDelete_Click(sender As Object, e As EventArgs) Handles cmdDelete.Click
+        Dim tripIdVal As Integer
+        If Not Integer.TryParse(txtTripId.Text, tripIdVal) Then
+            MessageBox.Show("Please select a schedule from the list to delete.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim confirmResult = MessageBox.Show("Deleting this schedule will also cancel all associated bookings. Do you want to proceed?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        If confirmResult = DialogResult.Yes Then
+            Try
+                Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                    conn.Open()
+                    Dim deleteSql As String = "DELETE FROM Schedules WHERE TripId = @TripId"
+                    Using cmd As New SqlCommand(deleteSql, conn)
+                        cmd.Parameters.AddWithValue("@TripId", tripIdVal)
+                        cmd.ExecuteNonQuery()
+                    End Using
+                End Using
+
+                MessageBox.Show("Schedule and all associated bookings deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LoadSchedules()
+                ClearInputs()
+            Catch ex As Exception
+                MessageBox.Show("Failed to delete schedule: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+
+    Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
+        Me.Close()
+    End Sub
+End Class
