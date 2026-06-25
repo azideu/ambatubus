@@ -80,6 +80,16 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
 
+                ' Auto-migration: Add IsBlocked column if missing
+                Dim addIsBlockedSql As String = "
+                    IF COL_LENGTH('dbo.Passengers', 'IsBlocked') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Passengers] ADD [IsBlocked] BIT NOT NULL DEFAULT 0
+                    END"
+                Using cmd As New SqlCommand(addIsBlockedSql, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+
                 ' Create Bookings Table with UNIQUE constraint
                 Dim createBookingsSql As String = "
                     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bookings]') AND type in (N'U'))

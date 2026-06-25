@@ -62,23 +62,31 @@ Public Class frmAdminDashboard
         LoadDashboardData() ' Refresh data when coming back
     End Sub
 
+    Private Sub cmdManagePassengers_Click(sender As Object, e As EventArgs) Handles cmdManagePassengers.Click
+        Dim passengersForm As New frmManagePassengers()
+        Me.Hide()
+        passengersForm.ShowDialog()
+        Me.Show()
+        LoadDashboardData() ' Refresh data when coming back
+    End Sub
+
     Private Sub cmdLogout_Click(sender As Object, e As EventArgs) Handles cmdLogout.Click
         Me.Close()
     End Sub
 
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdLogout.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdLogout.MouseEnter
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
             btn.BackColor = Color.FromArgb(35, 175, 105)
         ElseIf btn Is cmdLogout Then
             btn.BackColor = Color.FromArgb(210, 70, 70)
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdLogout.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdLogout.MouseLeave
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
             btn.BackColor = Color.FromArgb(20, 150, 85)
         ElseIf btn Is cmdLogout Then
             btn.BackColor = Color.FromArgb(180, 50, 50)

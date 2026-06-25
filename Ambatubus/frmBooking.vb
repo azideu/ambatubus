@@ -317,17 +317,26 @@ Public Class frmBooking
 
     Private Function GetOrCreatePassengerId(name As String, phone As String, conn As SqlConnection) As Integer
         ' Check if passenger exists
-        Dim lookupQuery As String = "SELECT PassengerId FROM Passengers WHERE Phone = @Phone"
+        Dim lookupQuery As String = "SELECT PassengerId, IsBlocked FROM Passengers WHERE Phone = @Phone"
         Using cmd As New SqlCommand(lookupQuery, conn)
             cmd.Parameters.AddWithValue("@Phone", phone)
-            Dim id = cmd.ExecuteScalar()
-            If id IsNot Nothing AndAlso id IsNot DBNull.Value Then
-                Return Convert.ToInt32(id)
-            End If
+            Using reader = cmd.ExecuteReader()
+                If reader.Read() Then
+                    Dim id As Integer = Convert.ToInt32(reader("PassengerId"))
+                    Dim isBlocked As Boolean = False
+                    If Not reader.IsDBNull(reader.GetOrdinal("IsBlocked")) Then
+                        isBlocked = Convert.ToBoolean(reader("IsBlocked"))
+                    End If
+                    If isBlocked Then
+                        Throw New InvalidOperationException("This passenger has been blocked from booking.")
+                    End If
+                    Return id
+                End If
+            End Using
         End Using
 
         ' Create passenger if not found
-        Dim insertQuery As String = "INSERT INTO Passengers (FullName, Phone) VALUES (@Name, @Phone); SELECT SCOPE_IDENTITY();"
+        Dim insertQuery As String = "INSERT INTO Passengers (FullName, Phone, IsBlocked) VALUES (@Name, @Phone, 0); SELECT SCOPE_IDENTITY();"
         Using cmd As New SqlCommand(insertQuery, conn)
             cmd.Parameters.AddWithValue("@Name", name)
             cmd.Parameters.AddWithValue("@Phone", phone)
