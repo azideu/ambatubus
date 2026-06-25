@@ -57,6 +57,7 @@ Partial Class frmMainMenu
         Me.picBanner.Name = "picBanner"
         Me.picBanner.Size = New System.Drawing.Size(800, 160)
         Me.picBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picBanner.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'pnlStatBookings
         '
@@ -146,6 +147,7 @@ Partial Class frmMainMenu
         Me.grpRoutes.Location = New System.Drawing.Point(30, 335)
         Me.grpRoutes.Size = New System.Drawing.Size(800, 270)
         Me.grpRoutes.Text = "Available Malaysian Routes"
+        Me.grpRoutes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'lblSearch
         '
@@ -154,6 +156,7 @@ Partial Class frmMainMenu
         Me.lblSearch.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
         Me.lblSearch.Location = New System.Drawing.Point(15, 25)
         Me.lblSearch.Text = "Search Route:"
+        Me.lblSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'txtSearchRoute
         '
@@ -163,6 +166,7 @@ Partial Class frmMainMenu
         Me.txtSearchRoute.Font = New System.Drawing.Font("Segoe UI", 9.5!)
         Me.txtSearchRoute.Location = New System.Drawing.Point(110, 22)
         Me.txtSearchRoute.Size = New System.Drawing.Size(250, 23)
+        Me.txtSearchRoute.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'dgvRoutes
         '
@@ -178,6 +182,7 @@ Partial Class frmMainMenu
         Me.dgvRoutes.RowHeadersVisible = False
         Me.dgvRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvRoutes.Size = New System.Drawing.Size(770, 200)
+        Me.dgvRoutes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Dim dgvRoutesStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvRoutesStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvRoutesStyle1.ForeColor = System.Drawing.Color.White
@@ -211,6 +216,7 @@ Partial Class frmMainMenu
         Me.cmdBook.Location = New System.Drawing.Point(30, 625)
         Me.cmdBook.Size = New System.Drawing.Size(240, 45)
         Me.cmdBook.Text = "🎫 Ticket Booking"
+        Me.cmdBook.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdBook.UseVisualStyleBackColor = False
         '
         'cmdAdmin
@@ -223,6 +229,7 @@ Partial Class frmMainMenu
         Me.cmdAdmin.Location = New System.Drawing.Point(290, 625)
         Me.cmdAdmin.Size = New System.Drawing.Size(240, 45)
         Me.cmdAdmin.Text = "⚙️ Bus Admin Panel"
+        Me.cmdAdmin.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdAdmin.UseVisualStyleBackColor = False
         '
         'cmdClose
@@ -236,6 +243,7 @@ Partial Class frmMainMenu
         Me.cmdClose.Size = New System.Drawing.Size(160, 45)
         Me.cmdClose.TabIndex = 6
         Me.cmdClose.Text = "🚪 Exit System"
+        Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
         '
         'cmdToggleTheme
@@ -249,6 +257,7 @@ Partial Class frmMainMenu
         Me.cmdToggleTheme.Name = "cmdToggleTheme"
         Me.cmdToggleTheme.Size = New System.Drawing.Size(160, 35)
         Me.cmdToggleTheme.TabIndex = 7
+        Me.cmdToggleTheme.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdToggleTheme.Text = "🌓 Toggle Theme"
         Me.cmdToggleTheme.UseVisualStyleBackColor = False
         '
@@ -268,8 +277,6 @@ Partial Class frmMainMenu
         Me.Controls.Add(Me.pnlStatBookings)
         Me.Controls.Add(Me.picBanner)
         Me.Controls.Add(Me.lblTitle)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
         Me.Name = "frmMainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Dashboard"

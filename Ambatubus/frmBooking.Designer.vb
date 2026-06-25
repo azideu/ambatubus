@@ -183,8 +183,9 @@ Partial Class frmBooking
         '
         Me.picDestCard.Location = New System.Drawing.Point(20, 480)
         Me.picDestCard.Name = "picDestCard"
-        Me.picDestCard.Size = New System.Drawing.Size(320, 140)
-        Me.picDestCard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picDestCard.Size = New System.Drawing.Size(320, 160)
+        Me.picDestCard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picDestCard.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.picDestCard.TabStop = False
         '
         'cmdBook
@@ -196,7 +197,8 @@ Partial Class frmBooking
         Me.cmdBook.ForeColor = System.Drawing.Color.White
         Me.cmdBook.Location = New System.Drawing.Point(20, 635)
         Me.cmdBook.Size = New System.Drawing.Size(145, 35)
-        Me.cmdBook.Text = "➕ Book Seat"
+        Me.cmdBook.Text = "🎟️ Book Ticket"
+        Me.cmdBook.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdBook.UseVisualStyleBackColor = False
         '
         'cmdUpdate
@@ -209,6 +211,7 @@ Partial Class frmBooking
         Me.cmdUpdate.Location = New System.Drawing.Point(195, 635)
         Me.cmdUpdate.Size = New System.Drawing.Size(145, 35)
         Me.cmdUpdate.Text = "✏️ Update details"
+        Me.cmdUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdUpdate.UseVisualStyleBackColor = False
         '
         'cmdDelete
@@ -221,6 +224,7 @@ Partial Class frmBooking
         Me.cmdDelete.Location = New System.Drawing.Point(20, 680)
         Me.cmdDelete.Size = New System.Drawing.Size(145, 35)
         Me.cmdDelete.Text = "🗑️ Cancel Booking"
+        Me.cmdDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdDelete.UseVisualStyleBackColor = False
         '
         'cmdClose
@@ -233,6 +237,7 @@ Partial Class frmBooking
         Me.cmdClose.Location = New System.Drawing.Point(195, 680)
         Me.cmdClose.Size = New System.Drawing.Size(145, 35)
         Me.cmdClose.Text = "⬅️ Back to Menu"
+        Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
         '
         'grpSeatMap
@@ -247,6 +252,7 @@ Partial Class frmBooking
         Me.grpSeatMap.Location = New System.Drawing.Point(360, 65)
         Me.grpSeatMap.Size = New System.Drawing.Size(320, 650)
         Me.grpSeatMap.Text = "Bus Seating Chart"
+        Me.grpSeatMap.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'lblBusFront
         '
@@ -275,12 +281,14 @@ Partial Class frmBooking
         Me.pnlLeftWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlLeftWall.Location = New System.Drawing.Point(10, 60)
         Me.pnlLeftWall.Size = New System.Drawing.Size(4, 530)
+        Me.pnlLeftWall.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         '
         'pnlRightWall
         '
         Me.pnlRightWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlRightWall.Location = New System.Drawing.Point(306, 60)
         Me.pnlRightWall.Size = New System.Drawing.Size(4, 530)
+        Me.pnlRightWall.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'pnlSeatGrid
         '
@@ -289,6 +297,7 @@ Partial Class frmBooking
         Me.pnlSeatGrid.Size = New System.Drawing.Size(288, 530)
         Me.pnlSeatGrid.AutoScroll = True
         Me.pnlSeatGrid.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.pnlSeatGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'grpBookingsGrid
         '
@@ -298,6 +307,7 @@ Partial Class frmBooking
         Me.grpBookingsGrid.Location = New System.Drawing.Point(700, 65)
         Me.grpBookingsGrid.Size = New System.Drawing.Size(570, 650)
         Me.grpBookingsGrid.Text = "Active Bookings"
+        Me.grpBookingsGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'dgvTickets
         '
@@ -313,6 +323,7 @@ Partial Class frmBooking
         Me.dgvTickets.RowHeadersVisible = False
         Me.dgvTickets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvTickets.Size = New System.Drawing.Size(540, 610)
+        Me.dgvTickets.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Dim dgvTixStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvTixStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvTixStyle1.ForeColor = System.Drawing.Color.White
@@ -351,8 +362,6 @@ Partial Class frmBooking
         Me.Controls.Add(Me.cmdBook)
         Me.Controls.Add(Me.grpBookingInput)
         Me.Controls.Add(Me.lblTitle)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
         Me.Name = "frmBooking"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Bookings Manager"

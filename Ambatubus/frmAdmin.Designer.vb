@@ -181,6 +181,7 @@ Partial Class frmAdmin
         Me.cmdAdd.Location = New System.Drawing.Point(20, 480)
         Me.cmdAdd.Size = New System.Drawing.Size(145, 35)
         Me.cmdAdd.Text = "➕ Add Trip"
+        Me.cmdAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdAdd.UseVisualStyleBackColor = False
         '
         'cmdUpdate
@@ -193,6 +194,7 @@ Partial Class frmAdmin
         Me.cmdUpdate.Location = New System.Drawing.Point(195, 480)
         Me.cmdUpdate.Size = New System.Drawing.Size(145, 35)
         Me.cmdUpdate.Text = "✏️ Update Trip"
+        Me.cmdUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdUpdate.UseVisualStyleBackColor = False
         '
         'cmdDelete
@@ -205,6 +207,7 @@ Partial Class frmAdmin
         Me.cmdDelete.Location = New System.Drawing.Point(20, 525)
         Me.cmdDelete.Size = New System.Drawing.Size(145, 35)
         Me.cmdDelete.Text = "🗑️ Delete Trip"
+        Me.cmdDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdDelete.UseVisualStyleBackColor = False
         '
         'cmdClose
@@ -217,6 +220,7 @@ Partial Class frmAdmin
         Me.cmdClose.Location = New System.Drawing.Point(195, 525)
         Me.cmdClose.Size = New System.Drawing.Size(145, 35)
         Me.cmdClose.Text = "⬅️ Back to Menu"
+        Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
         '
         'grpAdminGrid
@@ -229,6 +233,7 @@ Partial Class frmAdmin
         Me.grpAdminGrid.Location = New System.Drawing.Point(360, 65)
         Me.grpAdminGrid.Size = New System.Drawing.Size(610, 495)
         Me.grpAdminGrid.Text = "Current Bus Trips & Schedules"
+        Me.grpAdminGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'lblSearch
         '
@@ -261,6 +266,7 @@ Partial Class frmAdmin
         Me.dgvSchedules.RowHeadersVisible = False
         Me.dgvSchedules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvSchedules.Size = New System.Drawing.Size(580, 425)
+        Me.dgvSchedules.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Dim dgvSchedStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvSchedStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvSchedStyle1.ForeColor = System.Drawing.Color.White
@@ -297,8 +303,8 @@ Partial Class frmAdmin
         Me.Controls.Add(Me.cmdAdd)
         Me.Controls.Add(Me.grpAdminInput)
         Me.Controls.Add(Me.lblTitle)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
+        Me.MaximizeBox = True
         Me.Name = "frmAdmin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Bus Administrator"

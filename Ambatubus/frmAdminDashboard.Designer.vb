@@ -171,6 +171,7 @@ Partial Class frmAdminDashboard
         Me.dgvPopularRoutes.RowHeadersVisible = False
         Me.dgvPopularRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvPopularRoutes.Size = New System.Drawing.Size(640, 150)
+        Me.dgvPopularRoutes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvPopularRoutes.TabIndex = 5
         Dim dgvStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
@@ -207,6 +208,7 @@ Partial Class frmAdminDashboard
         Me.cmdManageSchedules.Size = New System.Drawing.Size(180, 45)
         Me.cmdManageSchedules.TabIndex = 6
         Me.cmdManageSchedules.Text = "🚌 Manage Schedules"
+        Me.cmdManageSchedules.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdManageSchedules.UseVisualStyleBackColor = False
         '
         'cmdManagePassengers
@@ -221,6 +223,7 @@ Partial Class frmAdminDashboard
         Me.cmdManagePassengers.Size = New System.Drawing.Size(190, 45)
         Me.cmdManagePassengers.TabIndex = 8
         Me.cmdManagePassengers.Text = "👥 Manage Passengers"
+        Me.cmdManagePassengers.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdManagePassengers.UseVisualStyleBackColor = False
         '
         'cmdLogout
@@ -235,6 +238,7 @@ Partial Class frmAdminDashboard
         Me.cmdLogout.Size = New System.Drawing.Size(150, 45)
         Me.cmdLogout.TabIndex = 7
         Me.cmdLogout.Text = "🚪 Logout"
+        Me.cmdLogout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdLogout.UseVisualStyleBackColor = False
         '
         'frmAdminDashboard
@@ -252,8 +256,8 @@ Partial Class frmAdminDashboard
         Me.Controls.Add(Me.pnlBookings)
         Me.Controls.Add(Me.pnlRevenue)
         Me.Controls.Add(Me.lblTitle)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
+        Me.MaximizeBox = True
         Me.Name = "frmAdminDashboard"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Admin Dashboard"

@@ -152,6 +152,7 @@ Partial Class frmManagePassengers
         Me.cmdUpdate.Size = New System.Drawing.Size(145, 35)
         Me.cmdUpdate.TabIndex = 2
         Me.cmdUpdate.Text = "✏️ Update Passenger"
+        Me.cmdUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdUpdate.UseVisualStyleBackColor = False
         '
         'cmdClose
@@ -166,6 +167,7 @@ Partial Class frmManagePassengers
         Me.cmdClose.Size = New System.Drawing.Size(145, 35)
         Me.cmdClose.TabIndex = 3
         Me.cmdClose.Text = "⬅️ Back"
+        Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
         '
         'grpPassengerGrid
@@ -181,6 +183,7 @@ Partial Class frmManagePassengers
         Me.grpPassengerGrid.TabIndex = 4
         Me.grpPassengerGrid.TabStop = False
         Me.grpPassengerGrid.Text = "Registered Passengers"
+        Me.grpPassengerGrid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'lblSearch
         '
@@ -220,6 +223,7 @@ Partial Class frmManagePassengers
         Me.dgvPassengers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvPassengers.Size = New System.Drawing.Size(580, 425)
         Me.dgvPassengers.TabIndex = 2
+        Me.dgvPassengers.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Dim dgvStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
@@ -254,8 +258,8 @@ Partial Class frmManagePassengers
         Me.Controls.Add(Me.cmdUpdate)
         Me.Controls.Add(Me.grpPassengerInput)
         Me.Controls.Add(Me.lblTitle)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
+        Me.MaximizeBox = True
         Me.Name = "frmManagePassengers"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Manage Passengers"
