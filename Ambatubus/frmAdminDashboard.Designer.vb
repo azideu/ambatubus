@@ -24,15 +24,15 @@ Partial Class frmAdminDashboard
         Me.pnlOccupancy = New System.Windows.Forms.Panel()
         Me.lblOccupancy = New System.Windows.Forms.Label()
         Me.lblOccupancyVal = New System.Windows.Forms.Label()
-        Me.lblPopularRoutes = New System.Windows.Forms.Label()
-        Me.dgvPopularRoutes = New System.Windows.Forms.DataGridView()
+        Me.pnlRevenueChart = New System.Windows.Forms.Panel()
+        Me.pnlRoutesChart = New System.Windows.Forms.Panel()
         Me.cmdManageSchedules = New System.Windows.Forms.Button()
         Me.cmdManagePassengers = New System.Windows.Forms.Button()
         Me.cmdLogout = New System.Windows.Forms.Button()
         Me.pnlRevenue.SuspendLayout()
         Me.pnlBookings.SuspendLayout()
         Me.pnlOccupancy.SuspendLayout()
-        CType(Me.dgvPopularRoutes, System.ComponentModel.ISupportInitialize).BeginInit()
+
         Me.SuspendLayout()
         '
         'lblTitle
@@ -144,57 +144,21 @@ Partial Class frmAdminDashboard
         Me.lblOccupancyVal.Size = New System.Drawing.Size(60, 30)
         Me.lblOccupancyVal.TabIndex = 1
         Me.lblOccupancyVal.Text = "0.0%"
+        'pnlRevenueChart
         '
-        'lblPopularRoutes
+        Me.pnlRevenueChart.Location = New System.Drawing.Point(20, 180)
+        Me.pnlRevenueChart.Name = "pnlRevenueChart"
+        Me.pnlRevenueChart.Size = New System.Drawing.Size(550, 250)
+        Me.pnlRevenueChart.TabIndex = 4
+        Me.pnlRevenueChart.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
-        Me.lblPopularRoutes.AutoSize = True
-        Me.lblPopularRoutes.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.lblPopularRoutes.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
-        Me.lblPopularRoutes.Location = New System.Drawing.Point(20, 190)
-        Me.lblPopularRoutes.Name = "lblPopularRoutes"
-        Me.lblPopularRoutes.Size = New System.Drawing.Size(169, 21)
-        Me.lblPopularRoutes.TabIndex = 4
-        Me.lblPopularRoutes.Text = "Most Popular Routes"
+        'pnlRoutesChart
         '
-        'dgvPopularRoutes
-        '
-        Me.dgvPopularRoutes.AllowUserToAddRows = False
-        Me.dgvPopularRoutes.AllowUserToDeleteRows = False
-        Me.dgvPopularRoutes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvPopularRoutes.BackgroundColor = System.Drawing.Color.FromArgb(35, 42, 38)
-        Me.dgvPopularRoutes.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvPopularRoutes.GridColor = System.Drawing.Color.FromArgb(50, 60, 55)
-        Me.dgvPopularRoutes.Location = New System.Drawing.Point(20, 220)
-        Me.dgvPopularRoutes.MultiSelect = False
-        Me.dgvPopularRoutes.Name = "dgvPopularRoutes"
-        Me.dgvPopularRoutes.ReadOnly = True
-        Me.dgvPopularRoutes.RowHeadersVisible = False
-        Me.dgvPopularRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPopularRoutes.Size = New System.Drawing.Size(640, 150)
-        Me.dgvPopularRoutes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvPopularRoutes.TabIndex = 5
-        Dim dgvStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
-        dgvStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
-        dgvStyle1.ForeColor = System.Drawing.Color.White
-        dgvStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
-        dgvStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(20, 110, 60)
-        dgvStyle1.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvPopularRoutes.ColumnHeadersDefaultCellStyle = dgvStyle1
-        Me.dgvPopularRoutes.EnableHeadersVisualStyles = False
-        Dim dgvStyle2 As New System.Windows.Forms.DataGridViewCellStyle()
-        dgvStyle2.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
-        dgvStyle2.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
-        dgvStyle2.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        dgvStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
-        dgvStyle2.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvPopularRoutes.DefaultCellStyle = dgvStyle2
-        Dim dgvStyle3 As New System.Windows.Forms.DataGridViewCellStyle()
-        dgvStyle3.BackColor = System.Drawing.Color.FromArgb(30, 36, 33)
-        dgvStyle3.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
-        dgvStyle3.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        dgvStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(25, 130, 75)
-        dgvStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.dgvPopularRoutes.AlternatingRowsDefaultCellStyle = dgvStyle3
+        Me.pnlRoutesChart.Location = New System.Drawing.Point(590, 180)
+        Me.pnlRoutesChart.Name = "pnlRoutesChart"
+        Me.pnlRoutesChart.Size = New System.Drawing.Size(380, 250)
+        Me.pnlRoutesChart.TabIndex = 5
+        Me.pnlRoutesChart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         'cmdManageSchedules
         '
@@ -203,7 +167,7 @@ Partial Class frmAdminDashboard
         Me.cmdManageSchedules.FlatAppearance.BorderSize = 0
         Me.cmdManageSchedules.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.cmdManageSchedules.ForeColor = System.Drawing.Color.White
-        Me.cmdManageSchedules.Location = New System.Drawing.Point(20, 390)
+        Me.cmdManageSchedules.Location = New System.Drawing.Point(20, 460)
         Me.cmdManageSchedules.Name = "cmdManageSchedules"
         Me.cmdManageSchedules.Size = New System.Drawing.Size(180, 45)
         Me.cmdManageSchedules.TabIndex = 6
@@ -218,7 +182,7 @@ Partial Class frmAdminDashboard
         Me.cmdManagePassengers.FlatAppearance.BorderSize = 0
         Me.cmdManagePassengers.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.cmdManagePassengers.ForeColor = System.Drawing.Color.White
-        Me.cmdManagePassengers.Location = New System.Drawing.Point(210, 390)
+        Me.cmdManagePassengers.Location = New System.Drawing.Point(210, 460)
         Me.cmdManagePassengers.Name = "cmdManagePassengers"
         Me.cmdManagePassengers.Size = New System.Drawing.Size(190, 45)
         Me.cmdManagePassengers.TabIndex = 8
@@ -233,7 +197,7 @@ Partial Class frmAdminDashboard
         Me.cmdLogout.FlatAppearance.BorderSize = 0
         Me.cmdLogout.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.cmdLogout.ForeColor = System.Drawing.Color.White
-        Me.cmdLogout.Location = New System.Drawing.Point(410, 390)
+        Me.cmdLogout.Location = New System.Drawing.Point(410, 460)
         Me.cmdLogout.Name = "cmdLogout"
         Me.cmdLogout.Size = New System.Drawing.Size(150, 45)
         Me.cmdLogout.TabIndex = 7
@@ -246,12 +210,12 @@ Partial Class frmAdminDashboard
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
-        Me.ClientSize = New System.Drawing.Size(680, 460)
+        Me.ClientSize = New System.Drawing.Size(1000, 520)
         Me.Controls.Add(Me.cmdLogout)
         Me.Controls.Add(Me.cmdManagePassengers)
         Me.Controls.Add(Me.cmdManageSchedules)
-        Me.Controls.Add(Me.dgvPopularRoutes)
-        Me.Controls.Add(Me.lblPopularRoutes)
+        Me.Controls.Add(Me.pnlRevenueChart)
+        Me.Controls.Add(Me.pnlRoutesChart)
         Me.Controls.Add(Me.pnlOccupancy)
         Me.Controls.Add(Me.pnlBookings)
         Me.Controls.Add(Me.pnlRevenue)
@@ -267,7 +231,7 @@ Partial Class frmAdminDashboard
         Me.pnlBookings.PerformLayout()
         Me.pnlOccupancy.ResumeLayout(False)
         Me.pnlOccupancy.PerformLayout()
-        CType(Me.dgvPopularRoutes, System.ComponentModel.ISupportInitialize).EndInit()
+
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -283,8 +247,8 @@ Partial Class frmAdminDashboard
     Friend WithEvents pnlOccupancy As System.Windows.Forms.Panel
     Friend WithEvents lblOccupancy As System.Windows.Forms.Label
     Friend WithEvents lblOccupancyVal As System.Windows.Forms.Label
-    Friend WithEvents lblPopularRoutes As System.Windows.Forms.Label
-    Friend WithEvents dgvPopularRoutes As System.Windows.Forms.DataGridView
+    Friend WithEvents pnlRevenueChart As System.Windows.Forms.Panel
+    Friend WithEvents pnlRoutesChart As System.Windows.Forms.Panel
     Friend WithEvents cmdManageSchedules As System.Windows.Forms.Button
     Friend WithEvents cmdManagePassengers As System.Windows.Forms.Button
     Friend WithEvents cmdLogout As System.Windows.Forms.Button

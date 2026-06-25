@@ -1,8 +1,14 @@
 Imports System
+Imports System.Collections.Generic
 Imports System.Data
 Imports System.Drawing
 Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
+Imports LiveChartsCore
+Imports LiveChartsCore.SkiaSharpView
+Imports LiveChartsCore.SkiaSharpView.WinForms
+Imports LiveChartsCore.SkiaSharpView.Painting
+Imports SkiaSharp
 
 Public Class frmAdminDashboard
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -38,17 +44,91 @@ Public Class frmAdminDashboard
                 End If
                 lblOccupancyVal.Text = String.Format("{0:F1}%", occupancyRate)
 
-                ' 4. Most Popular Routes
+                ' 4. Most Popular Routes (Pie Chart)
+                pnlRoutesChart.Controls.Clear()
                 Dim popularRoutesQuery As String = "
                     SELECT TOP 5 s.RouteName As [Route Name], COUNT(b.TicketId) As [Total Bookings] 
                     FROM Schedules s 
                     LEFT JOIN Bookings b ON s.TripId = b.TripId 
                     GROUP BY s.RouteName 
                     ORDER BY [Total Bookings] DESC"
-                Dim da As New SqlDataAdapter(popularRoutesQuery, conn)
-                Dim dt As New DataTable()
-                da.Fill(dt)
-                dgvPopularRoutes.DataSource = dt
+                Dim routesCmd As New SqlCommand(popularRoutesQuery, conn)
+                Dim routesReader As SqlDataReader = routesCmd.ExecuteReader()
+                Dim pieSeries As New List(Of ISeries)()
+                While routesReader.Read()
+                    Dim routeName As String = routesReader("Route Name").ToString()
+                    Dim routeBookings As Integer = Convert.ToInt32(routesReader("Total Bookings"))
+                    pieSeries.Add(New PieSeries(Of Integer) With {
+                        .Values = New Integer() {routeBookings},
+                        .Name = routeName,
+                        .DataLabelsPaint = New SolidColorPaint(SKColors.White),
+                        .DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                        .DataLabelsFormatter = Function(point) point.Model.ToString()
+                    })
+                End While
+                routesReader.Close()
+
+                Dim tColor As System.Drawing.Color = ThemeManager.CurrentTheme.InputText
+                Dim skTextColor As New SKColor(tColor.R, tColor.G, tColor.B)
+
+                Dim pieChart As New PieChart() With {
+                    .Series = pieSeries,
+                    .Dock = DockStyle.Fill,
+                    .LegendPosition = LiveChartsCore.Measure.LegendPosition.Right,
+                    .LegendTextPaint = New SolidColorPaint(skTextColor),
+                    .BackColor = ThemeManager.CurrentTheme.PanelBackground
+                }
+                pnlRoutesChart.Controls.Add(pieChart)
+
+                ' 5. Weekly Revenue (Bar Chart)
+                pnlRevenueChart.Controls.Clear()
+                Dim weeklyRevenueQuery As String = "
+                    SELECT CAST(BookingDate AS DATE) As [Date], COALESCE(SUM(TotalPrice), 0) As [Revenue]
+                    FROM Bookings
+                    WHERE BookingDate >= CAST(DATEADD(day, -7, GETDATE()) AS DATE)
+                    GROUP BY CAST(BookingDate AS DATE)
+                    ORDER BY [Date] ASC"
+                Dim revCmd As New SqlCommand(weeklyRevenueQuery, conn)
+                Dim revReader As SqlDataReader = revCmd.ExecuteReader()
+                
+                Dim revValues As New List(Of Decimal)()
+                Dim dateLabels As New List(Of String)()
+                While revReader.Read()
+                    dateLabels.Add(Convert.ToDateTime(revReader("Date")).ToString("MMM dd"))
+                    revValues.Add(Convert.ToDecimal(revReader("Revenue")))
+                End While
+                revReader.Close()
+
+                Dim btnColor As System.Drawing.Color = ThemeManager.CurrentTheme.ButtonPrimary
+                Dim skBtnColor As New SKColor(btnColor.R, btnColor.G, btnColor.B)
+
+                Dim barSeries As New List(Of ISeries) From {
+                    New ColumnSeries(Of Decimal) With {
+                        .Values = revValues,
+                        .Name = "Revenue (RM)",
+                        .Fill = New SolidColorPaint(skBtnColor)
+                    }
+                }
+
+                Dim barChart As New CartesianChart() With {
+                    .Series = barSeries,
+                    .XAxes = New List(Of Axis) From {
+                        New Axis With {
+                            .Labels = dateLabels,
+                            .LabelsPaint = New SolidColorPaint(skTextColor)
+                        }
+                    },
+                    .YAxes = New List(Of Axis) From {
+                        New Axis With {
+                            .LabelsPaint = New SolidColorPaint(skTextColor)
+                        }
+                    },
+                    .Dock = DockStyle.Fill,
+                    .TooltipTextPaint = New SolidColorPaint(SKColors.White),
+                    .BackColor = ThemeManager.CurrentTheme.PanelBackground
+                }
+                pnlRevenueChart.Controls.Add(barChart)
+
             End Using
         Catch ex As Exception
             MessageBox.Show("Failed to load dashboard data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
