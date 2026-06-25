@@ -6,6 +6,7 @@ Imports System.Windows.Forms
 
 Public Class frmMainMenu
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyTheme(Me)
         Try
             Dim bannerPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "dashboard_banner.png")
             If System.IO.File.Exists(bannerPath) Then
@@ -90,26 +91,33 @@ Public Class frmMainMenu
         Application.Exit()
     End Sub
 
+    Private Sub cmdToggleTheme_Click(sender As Object, e As EventArgs) Handles cmdToggleTheme.Click
+        ThemeManager.ToggleTheme()
+        ThemeManager.ApplyTheme(Me)
+        ' Ensure transparent background for title over banner remains
+        lblTitle.BackColor = Color.Transparent
+    End Sub
+
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdAdmin.MouseEnter, cmdClose.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdAdmin.MouseEnter, cmdClose.MouseEnter, cmdToggleTheme.MouseEnter
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
-            btn.BackColor = Color.FromArgb(35, 175, 105)
-        ElseIf btn Is cmdAdmin Then
-            btn.BackColor = Color.FromArgb(85, 95, 90)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
+        ElseIf btn Is cmdAdmin OrElse btn Is cmdToggleTheme Then
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutralHover
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(210, 70, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdAdmin.MouseLeave, cmdClose.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdAdmin.MouseLeave, cmdClose.MouseLeave, cmdToggleTheme.MouseLeave
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
-            btn.BackColor = Color.FromArgb(20, 150, 85)
-        ElseIf btn Is cmdAdmin Then
-            btn.BackColor = Color.FromArgb(65, 75, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
+        ElseIf btn Is cmdAdmin OrElse btn Is cmdToggleTheme Then
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutral
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(180, 50, 50)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger
         End If
     End Sub
 End Class

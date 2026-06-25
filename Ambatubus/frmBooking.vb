@@ -9,6 +9,7 @@ Public Class frmBooking
     Private selectedSeatNum As Integer = 0
 
     Private Sub frmBooking_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyTheme(Me)
         LoadSchedules()
         LoadBookings()
         ClearInputs()
@@ -564,26 +565,26 @@ Public Class frmBooking
     Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdUpdate.MouseEnter, cmdDelete.MouseEnter, cmdClose.MouseEnter
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
-            btn.BackColor = Color.FromArgb(35, 175, 105)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdUpdate Then
-            btn.BackColor = Color.FromArgb(50, 150, 210)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondaryHover
         ElseIf btn Is cmdDelete Then
-            btn.BackColor = Color.FromArgb(210, 70, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(85, 95, 90)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutralHover
         End If
     End Sub
 
     Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdUpdate.MouseLeave, cmdDelete.MouseLeave, cmdClose.MouseLeave
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
-            btn.BackColor = Color.FromArgb(20, 150, 85)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdUpdate Then
-            btn.BackColor = Color.FromArgb(30, 130, 190)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondary
         ElseIf btn Is cmdDelete Then
-            btn.BackColor = Color.FromArgb(180, 50, 50)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(65, 75, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutral
         End If
     End Sub
 End Class

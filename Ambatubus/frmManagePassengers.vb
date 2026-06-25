@@ -7,6 +7,7 @@ Imports System.Windows.Forms
 Public Class frmManagePassengers
 
     Private Sub frmManagePassengers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyTheme(Me)
         LoadPassengers()
         ClearInputs()
     End Sub
@@ -141,18 +142,18 @@ Public Class frmManagePassengers
     Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdUpdate.MouseEnter, cmdClose.MouseEnter
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdUpdate Then
-            btn.BackColor = Color.FromArgb(50, 150, 210)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondaryHover
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(85, 95, 90)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutralHover
         End If
     End Sub
 
     Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdUpdate.MouseLeave, cmdClose.MouseLeave
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdUpdate Then
-            btn.BackColor = Color.FromArgb(30, 130, 190)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondary
         ElseIf btn Is cmdClose Then
-            btn.BackColor = Color.FromArgb(65, 75, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutral
         End If
     End Sub
 End Class

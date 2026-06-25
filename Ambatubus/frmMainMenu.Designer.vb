@@ -32,6 +32,7 @@ Partial Class frmMainMenu
         Me.cmdBook = New System.Windows.Forms.Button()
         Me.cmdAdmin = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
+        Me.cmdToggleTheme = New System.Windows.Forms.Button()
         CType(Me.picBanner, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlStatBookings.SuspendLayout()
         Me.pnlStatRoutes.SuspendLayout()
@@ -232,9 +233,24 @@ Partial Class frmMainMenu
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
         Me.cmdClose.Location = New System.Drawing.Point(590, 625)
-        Me.cmdClose.Size = New System.Drawing.Size(240, 45)
-        Me.cmdClose.Text = "❌ Exit App"
+        Me.cmdClose.Size = New System.Drawing.Size(160, 45)
+        Me.cmdClose.TabIndex = 6
+        Me.cmdClose.Text = "🚪 Exit System"
         Me.cmdClose.UseVisualStyleBackColor = False
+        '
+        'cmdToggleTheme
+        '
+        Me.cmdToggleTheme.BackColor = System.Drawing.Color.FromArgb(65, 75, 70)
+        Me.cmdToggleTheme.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdToggleTheme.FlatAppearance.BorderSize = 0
+        Me.cmdToggleTheme.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.cmdToggleTheme.ForeColor = System.Drawing.Color.White
+        Me.cmdToggleTheme.Location = New System.Drawing.Point(670, 25)
+        Me.cmdToggleTheme.Name = "cmdToggleTheme"
+        Me.cmdToggleTheme.Size = New System.Drawing.Size(160, 35)
+        Me.cmdToggleTheme.TabIndex = 7
+        Me.cmdToggleTheme.Text = "🌓 Toggle Theme"
+        Me.cmdToggleTheme.UseVisualStyleBackColor = False
         '
         'frmMainMenu
         '
@@ -245,6 +261,7 @@ Partial Class frmMainMenu
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdAdmin)
         Me.Controls.Add(Me.cmdBook)
+        Me.Controls.Add(Me.cmdToggleTheme)
         Me.Controls.Add(Me.grpRoutes)
         Me.Controls.Add(Me.pnlStatRevenue)
         Me.Controls.Add(Me.pnlStatRoutes)
@@ -288,4 +305,5 @@ Partial Class frmMainMenu
     Friend WithEvents cmdBook As System.Windows.Forms.Button
     Friend WithEvents cmdAdmin As System.Windows.Forms.Button
     Friend WithEvents cmdClose As System.Windows.Forms.Button
+    Friend WithEvents cmdToggleTheme As System.Windows.Forms.Button
 End Class

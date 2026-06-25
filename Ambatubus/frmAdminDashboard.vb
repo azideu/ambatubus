@@ -6,6 +6,7 @@ Imports System.Windows.Forms
 
 Public Class frmAdminDashboard
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyTheme(Me)
         LoadDashboardData()
     End Sub
 
@@ -78,18 +79,18 @@ Public Class frmAdminDashboard
     Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdLogout.MouseEnter
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
-            btn.BackColor = Color.FromArgb(35, 175, 105)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdLogout Then
-            btn.BackColor = Color.FromArgb(210, 70, 70)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         End If
     End Sub
 
     Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdLogout.MouseLeave
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
-            btn.BackColor = Color.FromArgb(20, 150, 85)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdLogout Then
-            btn.BackColor = Color.FromArgb(180, 50, 50)
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger
         End If
     End Sub
 End Class
