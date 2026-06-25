@@ -80,8 +80,8 @@ Public Class frmMainMenu
     Private Sub cmdAdmin_Click(sender As Object, e As EventArgs) Handles cmdAdmin.Click
         Dim loginForm As New frmLogin()
         If loginForm.ShowDialog() = DialogResult.OK Then
-            Dim adminForm As New frmAdmin()
-            adminForm.ShowDialog()
+            Dim dashboardForm As New frmAdminDashboard()
+            dashboardForm.ShowDialog()
             LoadDashboardData()
         End If
     End Sub
