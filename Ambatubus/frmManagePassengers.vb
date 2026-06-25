@@ -94,6 +94,10 @@ Public Class frmManagePassengers
             Return
         End If
 
+        cmdUpdate.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
@@ -123,6 +127,9 @@ Public Class frmManagePassengers
             ClearInputs()
         Catch ex As Exception
             MessageBox.Show("Failed to update passenger: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdUpdate.Enabled = True
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 

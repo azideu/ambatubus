@@ -114,6 +114,10 @@ Public Class frmAdmin
 
         Dim routeName As String = $"{cboFrom.SelectedItem} to {cboTo.SelectedItem}"
 
+        cmdAdd.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
@@ -134,6 +138,9 @@ Public Class frmAdmin
             ClearInputs()
         Catch ex As Exception
             MessageBox.Show("Failed to create schedule: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdAdd.Enabled = True
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
@@ -172,6 +179,10 @@ Public Class frmAdmin
         End If
 
         Dim routeName As String = $"{cboFrom.SelectedItem} to {cboTo.SelectedItem}"
+
+        cmdUpdate.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
 
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
@@ -217,6 +228,9 @@ Public Class frmAdmin
             ClearInputs()
         Catch ex As Exception
             MessageBox.Show("Failed to update schedule: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdUpdate.Enabled = True
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 

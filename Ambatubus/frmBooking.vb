@@ -351,6 +351,10 @@ Public Class frmBooking
         Dim rowView As DataRowView = CType(cboRoute.SelectedItem, DataRowView)
         Dim price As Decimal = Convert.ToDecimal(rowView("Price"))
 
+        cmdBook.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+
         Try
             Dim newTicketId As Integer = 0
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
@@ -406,6 +410,9 @@ Public Class frmBooking
             LoadAvailableSeats(tripId)
         Catch ex As Exception
             MessageBox.Show("Booking failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdBook.Enabled = True
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
@@ -421,6 +428,10 @@ Public Class frmBooking
         Dim tripId As Integer = Convert.ToInt32(cboRoute.SelectedValue)
         Dim rowView As DataRowView = CType(cboRoute.SelectedItem, DataRowView)
         Dim price As Decimal = Convert.ToDecimal(rowView("Price"))
+
+        cmdUpdate.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Application.DoEvents()
 
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
@@ -462,6 +473,9 @@ Public Class frmBooking
             LoadAvailableSeats(tripId)
         Catch ex As Exception
             MessageBox.Show("Update failed: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdUpdate.Enabled = True
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
