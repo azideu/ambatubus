@@ -12,6 +12,14 @@ Public Class frmBooking
         LoadSchedules()
         LoadBookings()
         ClearInputs()
+        Try
+            Dim assetPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "destination_card.png")
+            If System.IO.File.Exists(assetPath) Then
+                picDestCard.Image = Image.FromFile(assetPath)
+            End If
+        Catch ex As Exception
+            ' Silent fail
+        End Try
     End Sub
 
     Private Sub LoadSchedules()

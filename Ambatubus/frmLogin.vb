@@ -5,6 +5,17 @@ Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
 
 Public Class frmLogin
+    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            Dim assetPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "login_logo.png")
+            If System.IO.File.Exists(assetPath) Then
+                picLogo.Image = Image.FromFile(assetPath)
+            End If
+        Catch ex As Exception
+            ' Silent fail
+        End Try
+    End Sub
+
     Private Sub cmdLogin_Click(sender As Object, e As EventArgs) Handles cmdLogin.Click
         Dim username As String = txtUsername.Text.Trim()
         Dim password As String = txtPassword.Text

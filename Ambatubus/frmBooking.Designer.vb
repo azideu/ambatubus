@@ -16,6 +16,7 @@ Partial Class frmBooking
     Private Sub InitializeComponent()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.grpBookingInput = New System.Windows.Forms.GroupBox()
+        Me.picDestCard = New System.Windows.Forms.PictureBox()
         Me.lblTicketId = New System.Windows.Forms.Label()
         Me.txtTicketId = New System.Windows.Forms.TextBox()
         Me.lblPassengerName = New System.Windows.Forms.Label()
@@ -43,6 +44,7 @@ Partial Class frmBooking
         Me.grpBookingInput.SuspendLayout()
         Me.grpBookingsGrid.SuspendLayout()
         CType(Me.dgvTickets, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picDestCard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTitle
@@ -177,6 +179,14 @@ Partial Class frmBooking
         Me.lblPrice.Location = New System.Drawing.Point(15, 335)
         Me.lblPrice.Text = "RM 0.00"
         '
+        'picDestCard
+        '
+        Me.picDestCard.Location = New System.Drawing.Point(20, 480)
+        Me.picDestCard.Name = "picDestCard"
+        Me.picDestCard.Size = New System.Drawing.Size(320, 140)
+        Me.picDestCard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picDestCard.TabStop = False
+        '
         'cmdBook
         '
         Me.cmdBook.BackColor = System.Drawing.Color.FromArgb(20, 150, 85)
@@ -184,7 +194,7 @@ Partial Class frmBooking
         Me.cmdBook.FlatAppearance.BorderSize = 0
         Me.cmdBook.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdBook.ForeColor = System.Drawing.Color.White
-        Me.cmdBook.Location = New System.Drawing.Point(20, 480)
+        Me.cmdBook.Location = New System.Drawing.Point(20, 635)
         Me.cmdBook.Size = New System.Drawing.Size(145, 35)
         Me.cmdBook.Text = "➕ Book Seat"
         Me.cmdBook.UseVisualStyleBackColor = False
@@ -196,7 +206,7 @@ Partial Class frmBooking
         Me.cmdUpdate.FlatAppearance.BorderSize = 0
         Me.cmdUpdate.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdUpdate.ForeColor = System.Drawing.Color.White
-        Me.cmdUpdate.Location = New System.Drawing.Point(195, 480)
+        Me.cmdUpdate.Location = New System.Drawing.Point(195, 635)
         Me.cmdUpdate.Size = New System.Drawing.Size(145, 35)
         Me.cmdUpdate.Text = "✏️ Update details"
         Me.cmdUpdate.UseVisualStyleBackColor = False
@@ -208,7 +218,7 @@ Partial Class frmBooking
         Me.cmdDelete.FlatAppearance.BorderSize = 0
         Me.cmdDelete.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdDelete.ForeColor = System.Drawing.Color.White
-        Me.cmdDelete.Location = New System.Drawing.Point(20, 525)
+        Me.cmdDelete.Location = New System.Drawing.Point(20, 680)
         Me.cmdDelete.Size = New System.Drawing.Size(145, 35)
         Me.cmdDelete.Text = "🗑️ Cancel Booking"
         Me.cmdDelete.UseVisualStyleBackColor = False
@@ -220,7 +230,7 @@ Partial Class frmBooking
         Me.cmdClose.FlatAppearance.BorderSize = 0
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
-        Me.cmdClose.Location = New System.Drawing.Point(195, 525)
+        Me.cmdClose.Location = New System.Drawing.Point(195, 680)
         Me.cmdClose.Size = New System.Drawing.Size(145, 35)
         Me.cmdClose.Text = "⬅️ Back to Menu"
         Me.cmdClose.UseVisualStyleBackColor = False
@@ -235,7 +245,7 @@ Partial Class frmBooking
         Me.grpSeatMap.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.grpSeatMap.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpSeatMap.Location = New System.Drawing.Point(360, 65)
-        Me.grpSeatMap.Size = New System.Drawing.Size(320, 495)
+        Me.grpSeatMap.Size = New System.Drawing.Size(320, 650)
         Me.grpSeatMap.Text = "Bus Seating Chart"
         '
         'lblBusFront
@@ -254,7 +264,7 @@ Partial Class frmBooking
         Me.lblBusBack.BackColor = System.Drawing.Color.FromArgb(35, 40, 38)
         Me.lblBusBack.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblBusBack.ForeColor = System.Drawing.Color.FromArgb(140, 150, 145)
-        Me.lblBusBack.Location = New System.Drawing.Point(16, 450)
+        Me.lblBusBack.Location = New System.Drawing.Point(16, 600)
         Me.lblBusBack.Size = New System.Drawing.Size(288, 30)
         Me.lblBusBack.Text = "[ BACK / REAR ]"
         Me.lblBusBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -264,19 +274,19 @@ Partial Class frmBooking
         '
         Me.pnlLeftWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlLeftWall.Location = New System.Drawing.Point(10, 60)
-        Me.pnlLeftWall.Size = New System.Drawing.Size(4, 380)
+        Me.pnlLeftWall.Size = New System.Drawing.Size(4, 530)
         '
         'pnlRightWall
         '
         Me.pnlRightWall.BackColor = System.Drawing.Color.FromArgb(60, 70, 65)
         Me.pnlRightWall.Location = New System.Drawing.Point(306, 60)
-        Me.pnlRightWall.Size = New System.Drawing.Size(4, 380)
+        Me.pnlRightWall.Size = New System.Drawing.Size(4, 530)
         '
         'pnlSeatGrid
         '
         Me.pnlSeatGrid.BackColor = System.Drawing.Color.FromArgb(30, 35, 33)
         Me.pnlSeatGrid.Location = New System.Drawing.Point(16, 60)
-        Me.pnlSeatGrid.Size = New System.Drawing.Size(288, 380)
+        Me.pnlSeatGrid.Size = New System.Drawing.Size(288, 530)
         Me.pnlSeatGrid.AutoScroll = True
         Me.pnlSeatGrid.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
         '
@@ -286,7 +296,7 @@ Partial Class frmBooking
         Me.grpBookingsGrid.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.grpBookingsGrid.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpBookingsGrid.Location = New System.Drawing.Point(700, 65)
-        Me.grpBookingsGrid.Size = New System.Drawing.Size(570, 495)
+        Me.grpBookingsGrid.Size = New System.Drawing.Size(570, 650)
         Me.grpBookingsGrid.Text = "Active Bookings"
         '
         'dgvTickets
@@ -302,7 +312,7 @@ Partial Class frmBooking
         Me.dgvTickets.ReadOnly = True
         Me.dgvTickets.RowHeadersVisible = False
         Me.dgvTickets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTickets.Size = New System.Drawing.Size(540, 455)
+        Me.dgvTickets.Size = New System.Drawing.Size(540, 610)
         Dim dgvTixStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvTixStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvTixStyle1.ForeColor = System.Drawing.Color.White
@@ -331,7 +341,8 @@ Partial Class frmBooking
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
-        Me.ClientSize = New System.Drawing.Size(1290, 580)
+        Me.ClientSize = New System.Drawing.Size(1290, 730)
+        Me.Controls.Add(Me.picDestCard)
         Me.Controls.Add(Me.grpBookingsGrid)
         Me.Controls.Add(Me.grpSeatMap)
         Me.Controls.Add(Me.cmdClose)
@@ -350,6 +361,7 @@ Partial Class frmBooking
         Me.grpSeatMap.ResumeLayout(False)
         Me.grpBookingsGrid.ResumeLayout(False)
         CType(Me.dgvTickets, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picDestCard, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -381,4 +393,5 @@ Partial Class frmBooking
     Friend WithEvents pnlRightWall As System.Windows.Forms.Panel
     Friend WithEvents grpBookingsGrid As System.Windows.Forms.GroupBox
     Friend WithEvents dgvTickets As System.Windows.Forms.DataGridView
+    Friend WithEvents picDestCard As System.Windows.Forms.PictureBox
 End Class

@@ -15,11 +15,14 @@ Partial Class frmMainMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.lblTitle = New System.Windows.Forms.Label()
-        Me.grpStats = New System.Windows.Forms.GroupBox()
+        Me.picBanner = New System.Windows.Forms.PictureBox()
+        Me.pnlStatBookings = New System.Windows.Forms.Panel()
         Me.lblTotalBookings = New System.Windows.Forms.Label()
         Me.lblTotalBookingsVal = New System.Windows.Forms.Label()
+        Me.pnlStatRoutes = New System.Windows.Forms.Panel()
         Me.lblTotalRoutes = New System.Windows.Forms.Label()
         Me.lblTotalRoutesVal = New System.Windows.Forms.Label()
+        Me.pnlStatRevenue = New System.Windows.Forms.Panel()
         Me.lblTotalRevenue = New System.Windows.Forms.Label()
         Me.lblTotalRevenueVal = New System.Windows.Forms.Label()
         Me.grpRoutes = New System.Windows.Forms.GroupBox()
@@ -29,9 +32,12 @@ Partial Class frmMainMenu
         Me.cmdBook = New System.Windows.Forms.Button()
         Me.cmdAdmin = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
-        Me.grpStats.SuspendLayout()
+        CType(Me.picBanner, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlStatBookings.SuspendLayout()
+        Me.pnlStatRoutes.SuspendLayout()
+        Me.pnlStatRevenue.SuspendLayout()
         Me.grpRoutes.SuspendLayout()
-        CType(Me.dgvRoutes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvRoutes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuspendLayout()
         '
         'lblTitle
@@ -44,26 +50,29 @@ Partial Class frmMainMenu
         Me.lblTitle.Size = New System.Drawing.Size(430, 45)
         Me.lblTitle.Text = "ambatubus Transit System"
         '
-        'grpStats
+        'picBanner
         '
-        Me.grpStats.Controls.Add(Me.lblTotalBookings)
-        Me.grpStats.Controls.Add(Me.lblTotalBookingsVal)
-        Me.grpStats.Controls.Add(Me.lblTotalRoutes)
-        Me.grpStats.Controls.Add(Me.lblTotalRoutesVal)
-        Me.grpStats.Controls.Add(Me.lblTotalRevenue)
-        Me.grpStats.Controls.Add(Me.lblTotalRevenueVal)
-        Me.grpStats.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.grpStats.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
-        Me.grpStats.Location = New System.Drawing.Point(30, 90)
-        Me.grpStats.Size = New System.Drawing.Size(740, 110)
-        Me.grpStats.Text = "Dashboard Summary"
+        Me.picBanner.Location = New System.Drawing.Point(30, 20)
+        Me.picBanner.Name = "picBanner"
+        Me.picBanner.Size = New System.Drawing.Size(800, 160)
+        Me.picBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        '
+        'pnlStatBookings
+        '
+        Me.pnlStatBookings.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.pnlStatBookings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlStatBookings.Controls.Add(Me.lblTotalBookings)
+        Me.pnlStatBookings.Controls.Add(Me.lblTotalBookingsVal)
+        Me.pnlStatBookings.Location = New System.Drawing.Point(30, 200)
+        Me.pnlStatBookings.Name = "pnlStatBookings"
+        Me.pnlStatBookings.Size = New System.Drawing.Size(250, 110)
         '
         'lblTotalBookings
         '
         Me.lblTotalBookings.AutoSize = True
         Me.lblTotalBookings.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblTotalBookings.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
-        Me.lblTotalBookings.Location = New System.Drawing.Point(30, 30)
+        Me.lblTotalBookings.Location = New System.Drawing.Point(20, 20)
         Me.lblTotalBookings.Text = "Total Bookings"
         '
         'lblTotalBookingsVal
@@ -71,15 +80,25 @@ Partial Class frmMainMenu
         Me.lblTotalBookingsVal.AutoSize = True
         Me.lblTotalBookingsVal.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
         Me.lblTotalBookingsVal.ForeColor = System.Drawing.Color.FromArgb(80, 180, 240)
-        Me.lblTotalBookingsVal.Location = New System.Drawing.Point(30, 50)
+        Me.lblTotalBookingsVal.Location = New System.Drawing.Point(20, 45)
         Me.lblTotalBookingsVal.Text = "0"
+        '
+        'pnlStatRoutes
+        '
+        Me.pnlStatRoutes.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.pnlStatRoutes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlStatRoutes.Controls.Add(Me.lblTotalRoutes)
+        Me.pnlStatRoutes.Controls.Add(Me.lblTotalRoutesVal)
+        Me.pnlStatRoutes.Location = New System.Drawing.Point(305, 200)
+        Me.pnlStatRoutes.Name = "pnlStatRoutes"
+        Me.pnlStatRoutes.Size = New System.Drawing.Size(250, 110)
         '
         'lblTotalRoutes
         '
         Me.lblTotalRoutes.AutoSize = True
         Me.lblTotalRoutes.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblTotalRoutes.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
-        Me.lblTotalRoutes.Location = New System.Drawing.Point(280, 30)
+        Me.lblTotalRoutes.Location = New System.Drawing.Point(20, 20)
         Me.lblTotalRoutes.Text = "Active Routes"
         '
         'lblTotalRoutesVal
@@ -87,15 +106,25 @@ Partial Class frmMainMenu
         Me.lblTotalRoutesVal.AutoSize = True
         Me.lblTotalRoutesVal.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
         Me.lblTotalRoutesVal.ForeColor = System.Drawing.Color.FromArgb(100, 220, 150)
-        Me.lblTotalRoutesVal.Location = New System.Drawing.Point(280, 50)
+        Me.lblTotalRoutesVal.Location = New System.Drawing.Point(20, 45)
         Me.lblTotalRoutesVal.Text = "0"
+        '
+        'pnlStatRevenue
+        '
+        Me.pnlStatRevenue.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.pnlStatRevenue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlStatRevenue.Controls.Add(Me.lblTotalRevenue)
+        Me.pnlStatRevenue.Controls.Add(Me.lblTotalRevenueVal)
+        Me.pnlStatRevenue.Location = New System.Drawing.Point(580, 200)
+        Me.pnlStatRevenue.Name = "pnlStatRevenue"
+        Me.pnlStatRevenue.Size = New System.Drawing.Size(250, 110)
         '
         'lblTotalRevenue
         '
         Me.lblTotalRevenue.AutoSize = True
         Me.lblTotalRevenue.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblTotalRevenue.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
-        Me.lblTotalRevenue.Location = New System.Drawing.Point(530, 30)
+        Me.lblTotalRevenue.Location = New System.Drawing.Point(20, 20)
         Me.lblTotalRevenue.Text = "Total Revenue"
         '
         'lblTotalRevenueVal
@@ -103,7 +132,7 @@ Partial Class frmMainMenu
         Me.lblTotalRevenueVal.AutoSize = True
         Me.lblTotalRevenueVal.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
         Me.lblTotalRevenueVal.ForeColor = System.Drawing.Color.FromArgb(250, 180, 80)
-        Me.lblTotalRevenueVal.Location = New System.Drawing.Point(530, 50)
+        Me.lblTotalRevenueVal.Location = New System.Drawing.Point(20, 45)
         Me.lblTotalRevenueVal.Text = "RM 0.00"
         '
         'grpRoutes
@@ -113,8 +142,8 @@ Partial Class frmMainMenu
         Me.grpRoutes.Controls.Add(Me.dgvRoutes)
         Me.grpRoutes.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.grpRoutes.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
-        Me.grpRoutes.Location = New System.Drawing.Point(30, 220)
-        Me.grpRoutes.Size = New System.Drawing.Size(740, 250)
+        Me.grpRoutes.Location = New System.Drawing.Point(30, 335)
+        Me.grpRoutes.Size = New System.Drawing.Size(800, 270)
         Me.grpRoutes.Text = "Available Malaysian Routes"
         '
         'lblSearch
@@ -147,7 +176,7 @@ Partial Class frmMainMenu
         Me.dgvRoutes.ReadOnly = True
         Me.dgvRoutes.RowHeadersVisible = False
         Me.dgvRoutes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRoutes.Size = New System.Drawing.Size(710, 180)
+        Me.dgvRoutes.Size = New System.Drawing.Size(770, 200)
         Dim dgvRoutesStyle1 As New System.Windows.Forms.DataGridViewCellStyle()
         dgvRoutesStyle1.BackColor = System.Drawing.Color.FromArgb(20, 110, 60)
         dgvRoutesStyle1.ForeColor = System.Drawing.Color.White
@@ -178,8 +207,8 @@ Partial Class frmMainMenu
         Me.cmdBook.FlatAppearance.BorderSize = 0
         Me.cmdBook.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdBook.ForeColor = System.Drawing.Color.White
-        Me.cmdBook.Location = New System.Drawing.Point(30, 490)
-        Me.cmdBook.Size = New System.Drawing.Size(180, 45)
+        Me.cmdBook.Location = New System.Drawing.Point(30, 625)
+        Me.cmdBook.Size = New System.Drawing.Size(240, 45)
         Me.cmdBook.Text = "🎫 Ticket Booking"
         Me.cmdBook.UseVisualStyleBackColor = False
         '
@@ -190,8 +219,8 @@ Partial Class frmMainMenu
         Me.cmdAdmin.FlatAppearance.BorderSize = 0
         Me.cmdAdmin.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdAdmin.ForeColor = System.Drawing.Color.White
-        Me.cmdAdmin.Location = New System.Drawing.Point(230, 490)
-        Me.cmdAdmin.Size = New System.Drawing.Size(180, 45)
+        Me.cmdAdmin.Location = New System.Drawing.Point(290, 625)
+        Me.cmdAdmin.Size = New System.Drawing.Size(240, 45)
         Me.cmdAdmin.Text = "⚙️ Bus Admin Panel"
         Me.cmdAdmin.UseVisualStyleBackColor = False
         '
@@ -202,8 +231,8 @@ Partial Class frmMainMenu
         Me.cmdClose.FlatAppearance.BorderSize = 0
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
-        Me.cmdClose.Location = New System.Drawing.Point(620, 490)
-        Me.cmdClose.Size = New System.Drawing.Size(150, 45)
+        Me.cmdClose.Location = New System.Drawing.Point(590, 625)
+        Me.cmdClose.Size = New System.Drawing.Size(240, 45)
         Me.cmdClose.Text = "❌ Exit App"
         Me.cmdClose.UseVisualStyleBackColor = False
         '
@@ -212,33 +241,44 @@ Partial Class frmMainMenu
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
-        Me.ClientSize = New System.Drawing.Size(800, 560)
+        Me.ClientSize = New System.Drawing.Size(860, 695)
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdAdmin)
         Me.Controls.Add(Me.cmdBook)
         Me.Controls.Add(Me.grpRoutes)
-        Me.Controls.Add(Me.grpStats)
+        Me.Controls.Add(Me.pnlStatRevenue)
+        Me.Controls.Add(Me.pnlStatRoutes)
+        Me.Controls.Add(Me.pnlStatBookings)
+        Me.Controls.Add(Me.picBanner)
         Me.Controls.Add(Me.lblTitle)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "frmMainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Dashboard"
-        Me.grpStats.ResumeLayout(False)
-        Me.grpStats.PerformLayout()
+        CType(Me.picBanner, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlStatBookings.ResumeLayout(False)
+        Me.pnlStatBookings.PerformLayout()
+        Me.pnlStatRoutes.ResumeLayout(False)
+        Me.pnlStatRoutes.PerformLayout()
+        Me.pnlStatRevenue.ResumeLayout(False)
+        Me.pnlStatRevenue.PerformLayout()
         Me.grpRoutes.ResumeLayout(False)
+        Me.grpRoutes.PerformLayout()
         CType(Me.dgvRoutes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
-
     End Sub
 
     Friend WithEvents lblTitle As System.Windows.Forms.Label
-    Friend WithEvents grpStats As System.Windows.Forms.GroupBox
+    Friend WithEvents picBanner As System.Windows.Forms.PictureBox
+    Friend WithEvents pnlStatBookings As System.Windows.Forms.Panel
     Friend WithEvents lblTotalBookings As System.Windows.Forms.Label
     Friend WithEvents lblTotalBookingsVal As System.Windows.Forms.Label
+    Friend WithEvents pnlStatRoutes As System.Windows.Forms.Panel
     Friend WithEvents lblTotalRoutes As System.Windows.Forms.Label
     Friend WithEvents lblTotalRoutesVal As System.Windows.Forms.Label
+    Friend WithEvents pnlStatRevenue As System.Windows.Forms.Panel
     Friend WithEvents lblTotalRevenue As System.Windows.Forms.Label
     Friend WithEvents lblTotalRevenueVal As System.Windows.Forms.Label
     Friend WithEvents grpRoutes As System.Windows.Forms.GroupBox

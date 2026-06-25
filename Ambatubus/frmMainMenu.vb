@@ -6,6 +6,19 @@ Imports System.Windows.Forms
 
 Public Class frmMainMenu
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            Dim bannerPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "dashboard_banner.png")
+            If System.IO.File.Exists(bannerPath) Then
+                picBanner.Image = Image.FromFile(bannerPath)
+            End If
+
+            ' Overlay title over banner image programmatically
+            lblTitle.Parent = picBanner
+            lblTitle.BackColor = Color.Transparent
+            lblTitle.Location = New Point(30, 30)
+        Catch ex As Exception
+            ' Silent fail
+        End Try
         LoadDashboardData()
     End Sub
 
