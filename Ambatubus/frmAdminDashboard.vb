@@ -34,7 +34,7 @@ Public Class frmAdminDashboard
                 lblTotalBookingsVal.Text = totalBookings.ToString()
 
                 ' 3. Seat Occupancy Rate
-                Dim capacityQuery As String = "SELECT COALESCE(SUM(SeatCapacity), 0) FROM Schedules"
+                Dim capacityQuery As String = "SELECT COALESCE(SUM(b.SeatCapacity), 0) FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId"
                 Dim capacityCmd As New SqlCommand(capacityQuery, conn)
                 Dim totalCapacity As Integer = Convert.ToInt32(capacityCmd.ExecuteScalar())
                 
@@ -151,23 +151,31 @@ Public Class frmAdminDashboard
         LoadDashboardData() ' Refresh data when coming back
     End Sub
 
+    Private Sub cmdManageBuses_Click(sender As Object, e As EventArgs) Handles cmdManageBuses.Click
+        Dim busesForm As New frmManageBuses()
+        Me.Hide()
+        busesForm.ShowDialog()
+        Me.Show()
+        LoadDashboardData() ' Refresh data when coming back
+    End Sub
+
     Private Sub cmdLogout_Click(sender As Object, e As EventArgs) Handles cmdLogout.Click
         Me.Close()
     End Sub
 
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdLogout.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdManageBuses.MouseEnter, cmdLogout.MouseEnter
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdLogout Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdLogout.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdManageBuses.MouseLeave, cmdLogout.MouseLeave
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdLogout Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger

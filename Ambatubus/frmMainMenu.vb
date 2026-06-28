@@ -29,7 +29,7 @@ Public Class frmMainMenu
                 conn.Open()
 
                 ' Load active bus schedules (with search filter)
-                Dim routesQuery As String = "SELECT TripId As [Trip ID], RouteName As [Route], DepartureTime As [Departure Time], Price As [Price (RM)], SeatCapacity As [Seat Capacity] FROM Schedules WHERE 1=1"
+                Dim routesQuery As String = "SELECT s.TripId As [Trip ID], s.RouteName As [Route], s.DepartureTime As [Departure Time], s.Price As [Price (RM)], b.BusName + ' (' + CAST(b.SeatCapacity AS NVARCHAR) + ')' As [Bus] FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId WHERE 1=1"
                 Dim filter As String = txtSearchRoute.Text.Trim()
                 If Not String.IsNullOrEmpty(filter) Then
                     routesQuery &= " AND RouteName LIKE @Filter"

@@ -94,10 +94,17 @@ Public Class frmBooking
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
 
-                ' Get capacity
-                Dim capCmd As New SqlCommand("SELECT SeatCapacity FROM Schedules WHERE TripId = @TripId", conn)
+                ' Get capacity and layout
+                Dim capCmd As New SqlCommand("SELECT b.SeatCapacity, b.LayoutType FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId WHERE s.TripId = @TripId", conn)
                 capCmd.Parameters.AddWithValue("@TripId", tripId)
-                Dim capacity As Integer = Convert.ToInt32(capCmd.ExecuteScalar())
+                Dim capacity As Integer = 0
+                Dim layoutType As String = "2-2"
+                Using reader As SqlDataReader = capCmd.ExecuteReader()
+                    If reader.Read() Then
+                        capacity = reader.GetInt32(0)
+                        layoutType = reader.GetString(1)
+                    End If
+                End Using
 
                 ' Get booked seats
                 Dim bookedQuery As String = "SELECT SeatNumber FROM Bookings WHERE TripId = @TripId"
@@ -119,46 +126,59 @@ Public Class frmBooking
                     End While
                 End Using
 
-                ' Draw seat grid dynamically (2-1-2 layout with walkway)
+                ' Draw seat grid dynamically based on layout
                 pnlSeatGrid.Controls.Clear()
+                
+                ' Adjust panel width to prevent premature wrapping
+                If layoutType = "1-1-1" Then
+                    pnlSeatGrid.Width = 280
+                ElseIf layoutType = "2-2" Then
+                    pnlSeatGrid.Width = 280
+                ElseIf layoutType = "2-1-2" Then
+                    pnlSeatGrid.Width = 400
+                End If
                 
                 Dim seatIndex As Integer = 1
                 While seatIndex <= capacity
-                    ' Column 1: Left window seat
-                    If seatIndex <= capacity Then
-                        AddSeatButton(seatIndex, bookedSeats)
-                        seatIndex += 1
-                    End If
-
-                    ' Column 2: Left aisle seat
-                    If seatIndex <= capacity Then
-                        AddSeatButton(seatIndex, bookedSeats)
-                        seatIndex += 1
-                    End If
-
-                    ' Column 3: Walkway gap
-                    Dim walkwayLabel As New Label()
-                    walkwayLabel.Text = ""
-                    walkwayLabel.Size = New Size(30, 40)
-                    walkwayLabel.Margin = New Padding(5, 3, 5, 3)
-                    pnlSeatGrid.Controls.Add(walkwayLabel)
-
-                    ' Column 4: Right aisle seat
-                    If seatIndex <= capacity Then
-                        AddSeatButton(seatIndex, bookedSeats)
-                        seatIndex += 1
-                    End If
-
-                    ' Column 5: Right window seat
-                    If seatIndex <= capacity Then
-                        AddSeatButton(seatIndex, bookedSeats)
-                        seatIndex += 1
+                    If layoutType = "1-1-1" Then
+                        ' 1-1-1 VIP Layout
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        AddWalkway(pnlSeatGrid)
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        AddWalkway(pnlSeatGrid)
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                    
+                    ElseIf layoutType = "2-1-2" Then
+                        ' 2-1-2 Layout
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        AddWalkway(pnlSeatGrid)
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        AddWalkway(pnlSeatGrid)
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        
+                    Else
+                        ' Default 2-2 Layout
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        AddWalkway(pnlSeatGrid)
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
+                        If seatIndex <= capacity Then AddSeatButton(seatIndex, bookedSeats) : seatIndex += 1
                     End If
                 End While
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading seats: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub AddWalkway(parentPanel As Panel)
+        Dim walkwayLabel As New Label()
+        walkwayLabel.Text = ""
+        walkwayLabel.Size = New Size(30, 40)
+        walkwayLabel.Margin = New Padding(5, 3, 5, 3)
+        parentPanel.Controls.Add(walkwayLabel)
     End Sub
 
     Private Sub AddSeatButton(seatNum As Integer, bookedSeats As List(Of Integer))
@@ -379,7 +399,7 @@ Public Class frmBooking
                 countCmd.Parameters.AddWithValue("@TripId", tripId)
                 Dim bookedCount As Integer = Convert.ToInt32(countCmd.ExecuteScalar())
 
-                Dim capCmd As New SqlCommand("SELECT SeatCapacity FROM Schedules WHERE TripId = @TripId", conn)
+                Dim capCmd As New SqlCommand("SELECT b.SeatCapacity FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId WHERE s.TripId = @TripId", conn)
                 capCmd.Parameters.AddWithValue("@TripId", tripId)
                 Dim capacity As Integer = Convert.ToInt32(capCmd.ExecuteScalar())
 

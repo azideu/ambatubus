@@ -20,20 +20,40 @@ Public Class frmAdmin
             cboTo.Items.Add(city)
         Next
 
+        LoadBuses()
         LoadSchedules()
         ClearInputs()
+    End Sub
+
+    Private Sub LoadBuses()
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+                Dim query As String = "SELECT BusId, BusName + ' (' + LayoutType + ', ' + CAST(SeatCapacity AS NVARCHAR) + ' seats)' AS DisplayName FROM Buses ORDER BY BusName"
+                Dim cmd As New SqlCommand(query, conn)
+                Dim dt As New DataTable()
+                dt.Load(cmd.ExecuteReader())
+                
+                cboBus.DisplayMember = "DisplayName"
+                cboBus.ValueMember = "BusId"
+                cboBus.DataSource = dt
+                cboBus.SelectedIndex = -1
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading buses: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub LoadSchedules()
         Try
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
-                Dim query As String = "SELECT TripId As [Trip ID], RouteName As [Route Name], DepartureTime As [Departure Time], Price As [Price (RM)], SeatCapacity As [Seat Capacity] FROM Schedules WHERE 1=1"
+                Dim query As String = "SELECT s.TripId As [Trip ID], s.RouteName As [Route Name], s.DepartureTime As [Departure Time], s.Price As [Price (RM)], b.BusName As [Bus], s.BusId FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId WHERE 1=1"
                 Dim filter As String = txtSearchRoute.Text.Trim()
                 If Not String.IsNullOrEmpty(filter) Then
-                    query &= " AND RouteName LIKE @Filter"
+                    query &= " AND s.RouteName LIKE @Filter"
                 End If
-                query &= " ORDER BY DepartureTime"
+                query &= " ORDER BY s.DepartureTime"
 
                 Dim cmd As New SqlCommand(query, conn)
                 If Not String.IsNullOrEmpty(filter) Then
@@ -44,6 +64,10 @@ Public Class frmAdmin
                 Dim dt As New DataTable()
                 da.Fill(dt)
                 dgvSchedules.DataSource = dt
+                
+                If dgvSchedules.Columns.Contains("BusId") Then
+                    dgvSchedules.Columns("BusId").Visible = False
+                End If
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading schedules: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -72,7 +96,9 @@ Public Class frmAdmin
 
             dtpDeparture.Value = Convert.ToDateTime(row.Cells("Departure Time").Value)
             txtPrice.Text = Convert.ToDecimal(row.Cells("Price (RM)").Value).ToString("F2")
-            txtSeatCapacity.Text = row.Cells("Seat Capacity").Value.ToString()
+            If row.Cells("BusId").Value IsNot DBNull.Value Then
+                cboBus.SelectedValue = Convert.ToInt32(row.Cells("BusId").Value)
+            End If
         End If
     End Sub
 
@@ -82,7 +108,7 @@ Public Class frmAdmin
         cboTo.SelectedIndex = -1
         dtpDeparture.Value = DateTime.Now.AddDays(1)
         txtPrice.Clear()
-        txtSeatCapacity.Text = "40"
+        cboBus.SelectedIndex = -1
     End Sub
 
     Private Sub cmdAdd_Click(sender As Object, e As EventArgs) Handles cmdAdd.Click
@@ -102,11 +128,12 @@ Public Class frmAdmin
             Return
         End If
 
-        Dim capacityVal As Integer
-        If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
-            MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If cboBus.SelectedValue Is Nothing Then
+            MessageBox.Show("Please select a bus.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+        
+        Dim busIdVal As Integer = Convert.ToInt32(cboBus.SelectedValue)
 
         If dtpDeparture.Value < DateTime.Now.AddHours(1) Then
             MessageBox.Show("Departure time must be at least 1 hour in the future.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -123,13 +150,13 @@ Public Class frmAdmin
             Using conn As New SqlConnection(DatabaseHelper.ConnString)
                 conn.Open()
                 Dim insertSql As String = "
-                    INSERT INTO Schedules (RouteName, DepartureTime, Price, SeatCapacity) 
-                    VALUES (@Route, @DepTime, @Price, @Capacity)"
+                    INSERT INTO Schedules (RouteName, DepartureTime, Price, BusId) 
+                    VALUES (@Route, @DepTime, @Price, @BusId)"
                 Using cmd As New SqlCommand(insertSql, conn)
                     cmd.Parameters.AddWithValue("@Route", routeName)
                     cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
                     cmd.Parameters.AddWithValue("@Price", priceVal)
-                    cmd.Parameters.AddWithValue("@Capacity", capacityVal)
+                    cmd.Parameters.AddWithValue("@BusId", busIdVal)
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
@@ -168,11 +195,12 @@ Public Class frmAdmin
             Return
         End If
 
-        Dim capacityVal As Integer
-        If Not Integer.TryParse(txtSeatCapacity.Text, capacityVal) OrElse capacityVal <= 0 Then
-            MessageBox.Show("Please enter a valid seat capacity greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If cboBus.SelectedValue Is Nothing Then
+            MessageBox.Show("Please select a bus.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+        
+        Dim busIdVal As Integer = Convert.ToInt32(cboBus.SelectedValue)
 
         If dtpDeparture.Value < DateTime.Now.AddHours(1) Then
             MessageBox.Show("Departure time must be at least 1 hour in the future.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -194,6 +222,10 @@ Public Class frmAdmin
                 checkCmd.Parameters.AddWithValue("@TripId", tripIdVal)
                 Dim bookedCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
 
+                Dim busCapCmd As New SqlCommand("SELECT SeatCapacity FROM Buses WHERE BusId = @BusId", conn)
+                busCapCmd.Parameters.AddWithValue("@BusId", busIdVal)
+                Dim capacityVal As Integer = Convert.ToInt32(busCapCmd.ExecuteScalar())
+
                 If capacityVal < bookedCount Then
                     MessageBox.Show($"Cannot decrease capacity below current bookings ({bookedCount} seats booked).", "Capacity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return
@@ -212,13 +244,13 @@ Public Class frmAdmin
 
                 Dim updateSql As String = "
                     UPDATE Schedules 
-                    SET RouteName = @Route, DepartureTime = @DepTime, Price = @Price, SeatCapacity = @Capacity 
+                    SET RouteName = @Route, DepartureTime = @DepTime, Price = @Price, BusId = @BusId 
                     WHERE TripId = @TripId"
                 Using cmd As New SqlCommand(updateSql, conn)
                     cmd.Parameters.AddWithValue("@Route", routeName)
                     cmd.Parameters.AddWithValue("@DepTime", dtpDeparture.Value)
                     cmd.Parameters.AddWithValue("@Price", priceVal)
-                    cmd.Parameters.AddWithValue("@Capacity", capacityVal)
+                    cmd.Parameters.AddWithValue("@BusId", busIdVal)
                     cmd.Parameters.AddWithValue("@TripId", tripIdVal)
                     cmd.ExecuteNonQuery()
                 End Using

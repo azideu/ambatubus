@@ -50,8 +50,24 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
 
-                ' Create Schedules Table
-                Dim createSchedulesSql As String = "
+                ' Auto-migration: Bus Fleet Management
+                Dim checkBusMigrateSql As String = "
+                    IF OBJECT_ID(N'[dbo].[Buses]', N'U') IS NULL
+                    BEGIN
+                        CREATE TABLE [dbo].[Buses] (
+                            [BusId] INT IDENTITY(1,1) PRIMARY KEY,
+                            [BusName] NVARCHAR(100) NOT NULL,
+                            [LayoutType] NVARCHAR(20) NOT NULL,
+                            [SeatCapacity] INT NOT NULL
+                        );
+                        
+                        -- Insert default buses
+                        INSERT INTO [dbo].[Buses] (BusName, LayoutType, SeatCapacity) VALUES 
+                        ('Standard Bus', '2-2', 40),
+                        ('VIP Express', '1-1-1', 30),
+                        ('Spacious Cruiser', '2-1-2', 45);
+                    END
+                    
                     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Schedules]') AND type in (N'U'))
                     BEGIN
                         CREATE TABLE [dbo].[Schedules] (
@@ -59,10 +75,22 @@ Public Class DatabaseHelper
                             [RouteName] NVARCHAR(100) NOT NULL,
                             [DepartureTime] DATETIME NOT NULL,
                             [Price] DECIMAL(10,2) NOT NULL,
-                            [SeatCapacity] INT NOT NULL
+                            [BusId] INT NOT NULL FOREIGN KEY REFERENCES [dbo].[Buses]([BusId]) ON DELETE CASCADE
                         )
+                    END
+                    
+                    IF COL_LENGTH('dbo.Schedules', 'BusId') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Schedules] ADD [BusId] INT;
+                        EXEC('UPDATE [dbo].[Schedules] SET [BusId] = (SELECT TOP 1 BusId FROM [dbo].[Buses] WHERE SeatCapacity >= [dbo].[Schedules].[SeatCapacity])');
+                        
+                        IF COL_LENGTH('dbo.Schedules', 'SeatCapacity') IS NOT NULL
+                        BEGIN
+                            ALTER TABLE [dbo].[Schedules] DROP COLUMN [SeatCapacity];
+                        END
+                        ALTER TABLE [dbo].[Schedules] ADD CONSTRAINT FK_Schedules_Buses FOREIGN KEY ([BusId]) REFERENCES [dbo].[Buses]([BusId]) ON DELETE CASCADE;
                     END"
-                Using cmd As New SqlCommand(createSchedulesSql, conn)
+                Using cmd As New SqlCommand(checkBusMigrateSql, conn)
                     cmd.ExecuteNonQuery()
                 End Using
 
@@ -127,11 +155,14 @@ Public Class DatabaseHelper
                 Dim scheduleCount As Integer = Convert.ToInt32(countSchedulesCmd.ExecuteScalar())
                 If scheduleCount = 0 Then
                     Dim seedSql As String = "
-                        INSERT INTO [dbo].[Schedules] (RouteName, DepartureTime, Price, SeatCapacity) VALUES
-                        ('Kuala Lumpur to Kuala Terengganu', DATEADD(day, 1, GETDATE()), 45.00, 30),
-                        ('Penang to Johor Bahru', DATEADD(day, 2, GETDATE()), 65.50, 40),
-                        ('Ipoh to Malacca', DATEADD(day, 3, GETDATE()), 38.00, 30),
-                        ('Kuala Lumpur to Penang', DATEADD(day, 4, GETDATE()), 35.00, 40)"
+                        DECLARE @Bus22 INT = (SELECT TOP 1 BusId FROM [dbo].[Buses] WHERE LayoutType = '2-2');
+                        DECLARE @Bus111 INT = (SELECT TOP 1 BusId FROM [dbo].[Buses] WHERE LayoutType = '1-1-1');
+                        
+                        INSERT INTO [dbo].[Schedules] (RouteName, DepartureTime, Price, BusId) VALUES
+                        ('Kuala Lumpur to Kuala Terengganu', DATEADD(day, 1, GETDATE()), 45.00, @Bus111),
+                        ('Penang to Johor Bahru', DATEADD(day, 2, GETDATE()), 65.50, @Bus22),
+                        ('Ipoh to Malacca', DATEADD(day, 3, GETDATE()), 38.00, @Bus111),
+                        ('Kuala Lumpur to Penang', DATEADD(day, 4, GETDATE()), 35.00, @Bus22)"
                     Using seedCmd As New SqlCommand(seedSql, conn)
                         seedCmd.ExecuteNonQuery()
                     End Using

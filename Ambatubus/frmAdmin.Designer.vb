@@ -26,8 +26,8 @@ Partial Class frmAdmin
         Me.dtpDeparture = New System.Windows.Forms.DateTimePicker()
         Me.lblPriceLabel = New System.Windows.Forms.Label()
         Me.txtPrice = New System.Windows.Forms.TextBox()
-        Me.lblSeatCapacity = New System.Windows.Forms.Label()
-        Me.txtSeatCapacity = New System.Windows.Forms.TextBox()
+        Me.lblBus = New System.Windows.Forms.Label()
+        Me.cboBus = New System.Windows.Forms.ComboBox()
         Me.cmdAdd = New System.Windows.Forms.Button()
         Me.cmdUpdate = New System.Windows.Forms.Button()
         Me.cmdDelete = New System.Windows.Forms.Button()
@@ -64,8 +64,8 @@ Partial Class frmAdmin
         Me.grpAdminInput.Controls.Add(Me.dtpDeparture)
         Me.grpAdminInput.Controls.Add(Me.lblPriceLabel)
         Me.grpAdminInput.Controls.Add(Me.txtPrice)
-        Me.grpAdminInput.Controls.Add(Me.lblSeatCapacity)
-        Me.grpAdminInput.Controls.Add(Me.txtSeatCapacity)
+        Me.grpAdminInput.Controls.Add(Me.lblBus)
+        Me.grpAdminInput.Controls.Add(Me.cboBus)
         Me.grpAdminInput.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.grpAdminInput.ForeColor = System.Drawing.Color.FromArgb(100, 120, 110)
         Me.grpAdminInput.Location = New System.Drawing.Point(20, 65)
@@ -155,21 +155,22 @@ Partial Class frmAdmin
         Me.txtPrice.Location = New System.Drawing.Point(15, 215)
         Me.txtPrice.Size = New System.Drawing.Size(290, 24)
         '
-        'lblSeatCapacity
+        'lblBus
         '
-        Me.lblSeatCapacity.AutoSize = True
-        Me.lblSeatCapacity.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblSeatCapacity.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
-        Me.lblSeatCapacity.Location = New System.Drawing.Point(15, 250)
-        Me.lblSeatCapacity.Text = "Seat Capacity"
+        Me.lblBus.AutoSize = True
+        Me.lblBus.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.lblBus.ForeColor = System.Drawing.Color.FromArgb(140, 160, 150)
+        Me.lblBus.Location = New System.Drawing.Point(15, 250)
+        Me.lblBus.Text = "Assigned Bus"
         '
-        'txtSeatCapacity
+        'cboBus
         '
-        Me.txtSeatCapacity.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
-        Me.txtSeatCapacity.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
-        Me.txtSeatCapacity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSeatCapacity.Location = New System.Drawing.Point(15, 270)
-        Me.txtSeatCapacity.Size = New System.Drawing.Size(290, 24)
+        Me.cboBus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboBus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cboBus.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
+        Me.cboBus.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.cboBus.Location = New System.Drawing.Point(15, 270)
+        Me.cboBus.Size = New System.Drawing.Size(290, 24)
         '
         'cmdAdd
         '
@@ -329,8 +330,8 @@ Partial Class frmAdmin
     Friend WithEvents dtpDeparture As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblPriceLabel As System.Windows.Forms.Label
     Friend WithEvents txtPrice As System.Windows.Forms.TextBox
-    Friend WithEvents lblSeatCapacity As System.Windows.Forms.Label
-    Friend WithEvents txtSeatCapacity As System.Windows.Forms.TextBox
+    Friend WithEvents lblBus As System.Windows.Forms.Label
+    Friend WithEvents cboBus As System.Windows.Forms.ComboBox
     Friend WithEvents cmdAdd As System.Windows.Forms.Button
     Friend WithEvents cmdUpdate As System.Windows.Forms.Button
     Friend WithEvents cmdDelete As System.Windows.Forms.Button

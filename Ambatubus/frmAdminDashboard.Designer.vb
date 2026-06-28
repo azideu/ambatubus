@@ -28,6 +28,7 @@ Partial Class frmAdminDashboard
         Me.pnlRoutesChart = New System.Windows.Forms.Panel()
         Me.cmdManageSchedules = New System.Windows.Forms.Button()
         Me.cmdManagePassengers = New System.Windows.Forms.Button()
+        Me.cmdManageBuses = New System.Windows.Forms.Button()
         Me.cmdLogout = New System.Windows.Forms.Button()
         Me.pnlRevenue.SuspendLayout()
         Me.pnlBookings.SuspendLayout()
@@ -190,6 +191,21 @@ Partial Class frmAdminDashboard
         Me.cmdManagePassengers.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdManagePassengers.UseVisualStyleBackColor = False
         '
+        'cmdManageBuses
+        '
+        Me.cmdManageBuses.BackColor = System.Drawing.Color.FromArgb(20, 150, 85)
+        Me.cmdManageBuses.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdManageBuses.FlatAppearance.BorderSize = 0
+        Me.cmdManageBuses.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.cmdManageBuses.ForeColor = System.Drawing.Color.White
+        Me.cmdManageBuses.Location = New System.Drawing.Point(410, 460)
+        Me.cmdManageBuses.Name = "cmdManageBuses"
+        Me.cmdManageBuses.Size = New System.Drawing.Size(180, 45)
+        Me.cmdManageBuses.TabIndex = 9
+        Me.cmdManageBuses.Text = "🚌 Manage Buses"
+        Me.cmdManageBuses.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdManageBuses.UseVisualStyleBackColor = False
+        '
         'cmdLogout
         '
         Me.cmdLogout.BackColor = System.Drawing.Color.FromArgb(180, 50, 50)
@@ -197,7 +213,7 @@ Partial Class frmAdminDashboard
         Me.cmdLogout.FlatAppearance.BorderSize = 0
         Me.cmdLogout.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.cmdLogout.ForeColor = System.Drawing.Color.White
-        Me.cmdLogout.Location = New System.Drawing.Point(410, 460)
+        Me.cmdLogout.Location = New System.Drawing.Point(600, 460)
         Me.cmdLogout.Name = "cmdLogout"
         Me.cmdLogout.Size = New System.Drawing.Size(150, 45)
         Me.cmdLogout.TabIndex = 7
@@ -212,6 +228,7 @@ Partial Class frmAdminDashboard
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
         Me.ClientSize = New System.Drawing.Size(1000, 520)
         Me.Controls.Add(Me.cmdLogout)
+        Me.Controls.Add(Me.cmdManageBuses)
         Me.Controls.Add(Me.cmdManagePassengers)
         Me.Controls.Add(Me.cmdManageSchedules)
         Me.Controls.Add(Me.pnlRevenueChart)
@@ -251,5 +268,6 @@ Partial Class frmAdminDashboard
     Friend WithEvents pnlRoutesChart As System.Windows.Forms.Panel
     Friend WithEvents cmdManageSchedules As System.Windows.Forms.Button
     Friend WithEvents cmdManagePassengers As System.Windows.Forms.Button
+    Friend WithEvents cmdManageBuses As System.Windows.Forms.Button
     Friend WithEvents cmdLogout As System.Windows.Forms.Button
 End Class
