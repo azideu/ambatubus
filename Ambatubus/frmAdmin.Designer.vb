@@ -32,6 +32,7 @@ Partial Class frmAdmin
         Me.cmdUpdate = New System.Windows.Forms.Button()
         Me.cmdDelete = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
+        Me.cmdExportManifest = New System.Windows.Forms.Button()
         Me.grpAdminGrid = New System.Windows.Forms.GroupBox()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.txtSearchRoute = New System.Windows.Forms.TextBox()
@@ -224,6 +225,21 @@ Partial Class frmAdmin
         Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
         '
+        'cmdExportManifest
+        '
+        Me.cmdExportManifest.BackColor = System.Drawing.Color.FromArgb(30, 130, 190)
+        Me.cmdExportManifest.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdExportManifest.FlatAppearance.BorderSize = 0
+        Me.cmdExportManifest.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.cmdExportManifest.ForeColor = System.Drawing.Color.White
+        Me.cmdExportManifest.Location = New System.Drawing.Point(780, 525)
+        Me.cmdExportManifest.Name = "cmdExportManifest"
+        Me.cmdExportManifest.Size = New System.Drawing.Size(190, 35)
+        Me.cmdExportManifest.TabIndex = 5
+        Me.cmdExportManifest.Text = "📄 Export Manifest"
+        Me.cmdExportManifest.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdExportManifest.UseVisualStyleBackColor = False
+        '
         'grpAdminGrid
         '
         Me.grpAdminGrid.Controls.Add(Me.lblSearch)
@@ -298,6 +314,7 @@ Partial Class frmAdmin
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
         Me.ClientSize = New System.Drawing.Size(990, 580)
         Me.Controls.Add(Me.grpAdminGrid)
+        Me.Controls.Add(Me.cmdExportManifest)
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdDelete)
         Me.Controls.Add(Me.cmdUpdate)
@@ -336,6 +353,7 @@ Partial Class frmAdmin
     Friend WithEvents cmdUpdate As System.Windows.Forms.Button
     Friend WithEvents cmdDelete As System.Windows.Forms.Button
     Friend WithEvents cmdClose As System.Windows.Forms.Button
+    Friend WithEvents cmdExportManifest As System.Windows.Forms.Button
     Friend WithEvents lblSearch As System.Windows.Forms.Label
     Friend WithEvents txtSearchRoute As System.Windows.Forms.TextBox
     Friend WithEvents grpAdminGrid As System.Windows.Forms.GroupBox

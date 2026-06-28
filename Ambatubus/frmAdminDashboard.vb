@@ -159,23 +159,76 @@ Public Class frmAdminDashboard
         LoadDashboardData() ' Refresh data when coming back
     End Sub
 
+    Private Sub cmdExportData_Click(sender As Object, e As EventArgs) Handles cmdExportData.Click
+        Dim choice As DialogResult = MessageBox.Show("Click 'Yes' to export Schedules." & vbCrLf & "Click 'No' to export All Bookings." & vbCrLf & "Click 'Cancel' to abort.", "Export Data", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+        
+        If choice = DialogResult.Cancel Then Return
+
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+                Dim dt As New DataTable()
+
+                If choice = DialogResult.Yes Then
+                    ' Export Schedules
+                    Dim query As String = "SELECT s.TripId As [Trip ID], s.RouteName As [Route Name], s.DepartureTime As [Departure Time], s.Price As [Price (RM)], b.BusName As [Assigned Bus], b.SeatCapacity As [Capacity] FROM Schedules s INNER JOIN Buses b ON s.BusId = b.BusId ORDER BY s.DepartureTime DESC"
+                    Dim cmd As New SqlCommand(query, conn)
+                    Dim da As New SqlDataAdapter(cmd)
+                    da.Fill(dt)
+
+                    If dt.Rows.Count = 0 Then
+                        MessageBox.Show("No schedules found to export.", "Empty", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return
+                    End If
+
+                    Dim sfd As New SaveFileDialog()
+                    sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+                    sfd.FileName = $"Schedules_Export_{DateTime.Now:yyyyMMdd}.csv"
+                    If sfd.ShowDialog() = DialogResult.OK Then
+                        ExportHelper.ExportDataTableToCsv(dt, sfd.FileName)
+                    End If
+                ElseIf choice = DialogResult.No Then
+                    ' Export Bookings
+                    Dim query As String = "SELECT b.TicketId As [Ticket ID], s.RouteName As [Route Name], b.SeatNumber As [Seat No], p.FullName As [Passenger Name], p.Phone As [Phone No], b.BookingDate As [Booking Date], b.TotalPrice As [Price Paid] FROM Bookings b INNER JOIN Schedules s ON b.TripId = s.TripId INNER JOIN Passengers p ON b.PassengerId = p.PassengerId ORDER BY b.BookingDate DESC"
+                    Dim cmd As New SqlCommand(query, conn)
+                    Dim da As New SqlDataAdapter(cmd)
+                    da.Fill(dt)
+
+                    If dt.Rows.Count = 0 Then
+                        MessageBox.Show("No bookings found to export.", "Empty", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return
+                    End If
+
+                    Dim sfd As New SaveFileDialog()
+                    sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+                    sfd.FileName = $"Bookings_Export_{DateTime.Now:yyyyMMdd}.csv"
+                    If sfd.ShowDialog() = DialogResult.OK Then
+                        ExportHelper.ExportDataTableToCsv(dt, sfd.FileName)
+                    End If
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Failed to export data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Private Sub cmdLogout_Click(sender As Object, e As EventArgs) Handles cmdLogout.Click
         Me.Close()
     End Sub
 
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdManageBuses.MouseEnter, cmdLogout.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseEnter, cmdManagePassengers.MouseEnter, cmdManageBuses.MouseEnter, cmdExportData.MouseEnter, cmdLogout.MouseEnter
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses OrElse btn Is cmdExportData Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdLogout Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdManageBuses.MouseLeave, cmdLogout.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdManageSchedules.MouseLeave, cmdManagePassengers.MouseLeave, cmdManageBuses.MouseLeave, cmdExportData.MouseLeave, cmdLogout.MouseLeave
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses Then
+        If btn Is cmdManageSchedules OrElse btn Is cmdManagePassengers OrElse btn Is cmdManageBuses OrElse btn Is cmdExportData Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdLogout Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger

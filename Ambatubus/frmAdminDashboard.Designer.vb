@@ -29,6 +29,7 @@ Partial Class frmAdminDashboard
         Me.cmdManageSchedules = New System.Windows.Forms.Button()
         Me.cmdManagePassengers = New System.Windows.Forms.Button()
         Me.cmdManageBuses = New System.Windows.Forms.Button()
+        Me.cmdExportData = New System.Windows.Forms.Button()
         Me.cmdLogout = New System.Windows.Forms.Button()
         Me.pnlRevenue.SuspendLayout()
         Me.pnlBookings.SuspendLayout()
@@ -221,12 +222,28 @@ Partial Class frmAdminDashboard
         Me.cmdLogout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdLogout.UseVisualStyleBackColor = False
         '
+        'cmdExportData
+        '
+        Me.cmdExportData.BackColor = System.Drawing.Color.FromArgb(30, 130, 190)
+        Me.cmdExportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdExportData.FlatAppearance.BorderSize = 0
+        Me.cmdExportData.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.cmdExportData.ForeColor = System.Drawing.Color.White
+        Me.cmdExportData.Location = New System.Drawing.Point(760, 460)
+        Me.cmdExportData.Name = "cmdExportData"
+        Me.cmdExportData.Size = New System.Drawing.Size(150, 45)
+        Me.cmdExportData.TabIndex = 10
+        Me.cmdExportData.Text = "📊 Export Data"
+        Me.cmdExportData.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdExportData.UseVisualStyleBackColor = False
+        '
         'frmAdminDashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(25, 30, 28)
         Me.ClientSize = New System.Drawing.Size(1000, 520)
+        Me.Controls.Add(Me.cmdExportData)
         Me.Controls.Add(Me.cmdLogout)
         Me.Controls.Add(Me.cmdManageBuses)
         Me.Controls.Add(Me.cmdManagePassengers)
@@ -269,5 +286,6 @@ Partial Class frmAdminDashboard
     Friend WithEvents cmdManageSchedules As System.Windows.Forms.Button
     Friend WithEvents cmdManagePassengers As System.Windows.Forms.Button
     Friend WithEvents cmdManageBuses As System.Windows.Forms.Button
+    Friend WithEvents cmdExportData As System.Windows.Forms.Button
     Friend WithEvents cmdLogout As System.Windows.Forms.Button
 End Class

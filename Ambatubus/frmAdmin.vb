@@ -295,14 +295,56 @@ Public Class frmAdmin
         End If
     End Sub
 
+    Private Sub cmdExportManifest_Click(sender As Object, e As EventArgs) Handles cmdExportManifest.Click
+        Dim tripIdVal As Integer
+        If Not Integer.TryParse(txtTripId.Text, tripIdVal) Then
+            MessageBox.Show("Please select a scheduled trip from the list first.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Try
+            Using conn As New SqlConnection(DatabaseHelper.ConnString)
+                conn.Open()
+                Dim query As String = "
+                    SELECT b.SeatNumber As [Seat No], p.FullName As [Passenger Name], p.Phone As [Phone No], b.BookingDate As [Booking Date], b.TotalPrice As [Price Paid]
+                    FROM Bookings b
+                    INNER JOIN Passengers p ON b.PassengerId = p.PassengerId
+                    WHERE b.TripId = @TripId
+                    ORDER BY b.SeatNumber ASC"
+                Dim cmd As New SqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@TripId", tripIdVal)
+
+                Dim dt As New DataTable()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(dt)
+
+                If dt.Rows.Count = 0 Then
+                    MessageBox.Show("No bookings found for this schedule.", "Manifest Empty", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+
+                Dim sfd As New SaveFileDialog()
+                sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+                Dim routeSafe As String = cboFrom.Text.Replace(" ", "") & "To" & cboTo.Text.Replace(" ", "")
+                sfd.FileName = $"Manifest_{routeSafe}_{dtpDeparture.Value:yyyyMMdd_HHmm}.csv"
+                
+                If sfd.ShowDialog() = DialogResult.OK Then
+                    ExportHelper.ExportDataTableToCsv(dt, sfd.FileName)
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Failed to export manifest: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
         Me.Close()
     End Sub
 
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdAdd.MouseEnter, cmdUpdate.MouseEnter, cmdDelete.MouseEnter, cmdClose.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdAdd.MouseEnter, cmdUpdate.MouseEnter, cmdDelete.MouseEnter, cmdClose.MouseEnter, cmdExportManifest.MouseEnter
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdAdd Then
+        If btn Is cmdAdd OrElse btn Is cmdExportManifest Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdUpdate Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondaryHover
@@ -313,9 +355,9 @@ Public Class frmAdmin
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdAdd.MouseLeave, cmdUpdate.MouseLeave, cmdDelete.MouseLeave, cmdClose.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdAdd.MouseLeave, cmdUpdate.MouseLeave, cmdDelete.MouseLeave, cmdClose.MouseLeave, cmdExportManifest.MouseLeave
         Dim btn As Button = CType(sender, Button)
-        If btn Is cmdAdd Then
+        If btn Is cmdAdd OrElse btn Is cmdExportManifest Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdUpdate Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondary
