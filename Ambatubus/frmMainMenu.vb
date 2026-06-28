@@ -5,7 +5,11 @@ Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
 
 Public Class frmMainMenu
+    Private clickCount As Integer = 0
+    Private WithEvents clickTimer As New Timer()
+
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        clickTimer.Interval = 10000 ' 10 seconds
         ThemeManager.ApplyTheme(Me)
         Try
             Dim bannerPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "dashboard_banner.png")
@@ -92,10 +96,34 @@ Public Class frmMainMenu
     End Sub
 
     Private Sub cmdToggleTheme_Click(sender As Object, e As EventArgs) Handles cmdToggleTheme.Click
+        clickCount += 1
+        If clickCount = 1 Then
+            clickTimer.Start()
+        End If
+
+        If clickCount > 10 Then
+            clickTimer.Stop()
+            clickCount = 0
+            Try
+                Dim easterEggPath As String = System.IO.Path.Combine(Application.StartupPath, "Assets", "easter_egg.png")
+                If System.IO.File.Exists(easterEggPath) Then
+                    picBanner.Image = Image.FromFile(easterEggPath)
+                Else
+                    MessageBox.Show("Easter egg unlocked! (Please save your meme image as 'Assets\easter_egg.png' and set its Build Action to 'Content' and 'Copy to Output Directory' to 'Copy if newer')", "Premium Transit System", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            Catch ex As Exception
+            End Try
+        End If
+
         ThemeManager.ToggleTheme()
         ThemeManager.ApplyTheme(Me)
         ' Ensure transparent background for title over banner remains
         lblTitle.BackColor = Color.Transparent
+    End Sub
+
+    Private Sub clickTimer_Tick(sender As Object, e As EventArgs) Handles clickTimer.Tick
+        clickTimer.Stop()
+        clickCount = 0
     End Sub
 
     ' Button Hover Effects
