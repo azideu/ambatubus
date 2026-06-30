@@ -31,8 +31,10 @@ Partial Class frmMainMenu
         Me.dgvRoutes = New System.Windows.Forms.DataGridView()
         Me.cmdBook = New System.Windows.Forms.Button()
         Me.cmdAdmin = New System.Windows.Forms.Button()
+        Me.cmdMyAccount = New System.Windows.Forms.Button()
         Me.cmdClose = New System.Windows.Forms.Button()
         Me.cmdToggleTheme = New System.Windows.Forms.Button()
+        Me.lblUserStatus = New System.Windows.Forms.Label()
         CType(Me.picBanner, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlStatBookings.SuspendLayout()
         Me.pnlStatRoutes.SuspendLayout()
@@ -214,7 +216,7 @@ Partial Class frmMainMenu
         Me.cmdBook.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdBook.ForeColor = System.Drawing.Color.White
         Me.cmdBook.Location = New System.Drawing.Point(30, 625)
-        Me.cmdBook.Size = New System.Drawing.Size(240, 45)
+        Me.cmdBook.Size = New System.Drawing.Size(190, 45)
         Me.cmdBook.Text = "🎫 Ticket Booking"
         Me.cmdBook.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdBook.UseVisualStyleBackColor = False
@@ -226,8 +228,8 @@ Partial Class frmMainMenu
         Me.cmdAdmin.FlatAppearance.BorderSize = 0
         Me.cmdAdmin.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdAdmin.ForeColor = System.Drawing.Color.White
-        Me.cmdAdmin.Location = New System.Drawing.Point(290, 625)
-        Me.cmdAdmin.Size = New System.Drawing.Size(240, 45)
+        Me.cmdAdmin.Location = New System.Drawing.Point(437, 625)
+        Me.cmdAdmin.Size = New System.Drawing.Size(190, 45)
         Me.cmdAdmin.Text = "⚙️ Bus Admin Panel"
         Me.cmdAdmin.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdAdmin.UseVisualStyleBackColor = False
@@ -239,12 +241,35 @@ Partial Class frmMainMenu
         Me.cmdClose.FlatAppearance.BorderSize = 0
         Me.cmdClose.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.cmdClose.ForeColor = System.Drawing.Color.White
-        Me.cmdClose.Location = New System.Drawing.Point(590, 625)
-        Me.cmdClose.Size = New System.Drawing.Size(160, 45)
+        Me.cmdClose.Location = New System.Drawing.Point(640, 625)
+        Me.cmdClose.Size = New System.Drawing.Size(190, 45)
         Me.cmdClose.TabIndex = 6
         Me.cmdClose.Text = "🚪 Exit System"
         Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdClose.UseVisualStyleBackColor = False
+        '
+        'cmdMyAccount
+        '
+        Me.cmdMyAccount.BackColor = System.Drawing.Color.FromArgb(30, 130, 190)
+        Me.cmdMyAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdMyAccount.FlatAppearance.BorderSize = 0
+        Me.cmdMyAccount.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.cmdMyAccount.ForeColor = System.Drawing.Color.White
+        Me.cmdMyAccount.Location = New System.Drawing.Point(233, 625)
+        Me.cmdMyAccount.Size = New System.Drawing.Size(190, 45)
+        Me.cmdMyAccount.Text = "👤 My Account"
+        Me.cmdMyAccount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdMyAccount.UseVisualStyleBackColor = False
+        '
+        'lblUserStatus
+        '
+        Me.lblUserStatus.AutoSize = True
+        Me.lblUserStatus.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblUserStatus.ForeColor = System.Drawing.Color.FromArgb(100, 220, 150)
+        Me.lblUserStatus.Location = New System.Drawing.Point(30, 185)
+        Me.lblUserStatus.Name = "lblUserStatus"
+        Me.lblUserStatus.Text = ""
+        Me.lblUserStatus.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         '
         'cmdToggleTheme
         '
@@ -269,6 +294,7 @@ Partial Class frmMainMenu
         Me.ClientSize = New System.Drawing.Size(860, 695)
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.cmdAdmin)
+        Me.Controls.Add(Me.cmdMyAccount)
         Me.Controls.Add(Me.cmdBook)
         Me.Controls.Add(Me.cmdToggleTheme)
         Me.Controls.Add(Me.grpRoutes)
@@ -277,6 +303,7 @@ Partial Class frmMainMenu
         Me.Controls.Add(Me.pnlStatBookings)
         Me.Controls.Add(Me.picBanner)
         Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.lblUserStatus)
         Me.Name = "frmMainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ambatubus - Dashboard"
@@ -311,6 +338,8 @@ Partial Class frmMainMenu
     Friend WithEvents dgvRoutes As System.Windows.Forms.DataGridView
     Friend WithEvents cmdBook As System.Windows.Forms.Button
     Friend WithEvents cmdAdmin As System.Windows.Forms.Button
+    Friend WithEvents cmdMyAccount As System.Windows.Forms.Button
     Friend WithEvents cmdClose As System.Windows.Forms.Button
     Friend WithEvents cmdToggleTheme As System.Windows.Forms.Button
+    Friend WithEvents lblUserStatus As System.Windows.Forms.Label
 End Class

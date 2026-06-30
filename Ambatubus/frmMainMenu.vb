@@ -25,6 +25,17 @@ Public Class frmMainMenu
             ' Silent fail
         End Try
         LoadDashboardData()
+        UpdateUserStatus()
+    End Sub
+
+    Private Sub UpdateUserStatus()
+        If SessionManager.IsLoggedIn Then
+            lblUserStatus.Text = $"Logged in as: {SessionManager.CurrentPassengerName}"
+            cmdMyAccount.Text = $"👤 {SessionManager.CurrentPassengerName}"
+        Else
+            lblUserStatus.Text = ""
+            cmdMyAccount.Text = "👤 My Account"
+        End If
     End Sub
 
     Private Sub LoadDashboardData()
@@ -91,6 +102,25 @@ Public Class frmMainMenu
         End If
     End Sub
 
+    Private Sub cmdMyAccount_Click(sender As Object, e As EventArgs) Handles cmdMyAccount.Click
+        If SessionManager.IsLoggedIn Then
+            Dim choice As DialogResult = MessageBox.Show(
+                $"You are logged in as {SessionManager.CurrentPassengerName}." & Environment.NewLine &
+                "Would you like to log out?",
+                "My Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If choice = DialogResult.Yes Then
+                SessionManager.Logout()
+                UpdateUserStatus()
+                MessageBox.Show("You have been logged out.", "Logged Out",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Else
+            Dim loginForm As New frmUserLogin()
+            loginForm.ShowDialog()
+            UpdateUserStatus()
+        End If
+    End Sub
+
     Private Sub cmdClose_Click(sender As Object, e As EventArgs) Handles cmdClose.Click
         Application.Exit()
     End Sub
@@ -127,23 +157,27 @@ Public Class frmMainMenu
     End Sub
 
     ' Button Hover Effects
-    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdAdmin.MouseEnter, cmdClose.MouseEnter, cmdToggleTheme.MouseEnter
+    Private Sub Button_MouseEnter(sender As Object, e As EventArgs) Handles cmdBook.MouseEnter, cmdAdmin.MouseEnter, cmdClose.MouseEnter, cmdToggleTheme.MouseEnter, cmdMyAccount.MouseEnter
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimaryHover
         ElseIf btn Is cmdAdmin OrElse btn Is cmdToggleTheme Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutralHover
+        ElseIf btn Is cmdMyAccount Then
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondaryHover
         ElseIf btn Is cmdClose Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDangerHover
         End If
     End Sub
 
-    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdAdmin.MouseLeave, cmdClose.MouseLeave, cmdToggleTheme.MouseLeave
+    Private Sub Button_MouseLeave(sender As Object, e As EventArgs) Handles cmdBook.MouseLeave, cmdAdmin.MouseLeave, cmdClose.MouseLeave, cmdToggleTheme.MouseLeave, cmdMyAccount.MouseLeave
         Dim btn As Button = CType(sender, Button)
         If btn Is cmdBook Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonPrimary
         ElseIf btn Is cmdAdmin OrElse btn Is cmdToggleTheme Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonNeutral
+        ElseIf btn Is cmdMyAccount Then
+            btn.BackColor = ThemeManager.CurrentTheme.ButtonSecondary
         ElseIf btn Is cmdClose Then
             btn.BackColor = ThemeManager.CurrentTheme.ButtonDanger
         End If

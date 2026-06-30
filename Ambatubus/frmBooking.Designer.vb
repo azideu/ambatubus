@@ -143,8 +143,9 @@ Partial Class frmBooking
         Me.cboRoute.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cboRoute.BackColor = System.Drawing.Color.FromArgb(35, 42, 38)
         Me.cboRoute.ForeColor = System.Drawing.Color.FromArgb(220, 235, 225)
+        Me.cboRoute.DropDownWidth = 450
         Me.cboRoute.Location = New System.Drawing.Point(15, 215)
-        Me.cboRoute.Size = New System.Drawing.Size(290, 25)
+        Me.cboRoute.Size = New System.Drawing.Size(350, 25)
         '
         'lblSeat
         '

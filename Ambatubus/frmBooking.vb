@@ -288,8 +288,14 @@ Public Class frmBooking
 
     Private Sub ClearInputs()
         txtTicketId.Clear()
-        txtPassengerName.Clear()
-        txtPhone.Clear()
+        
+        If SessionManager.IsLoggedIn Then
+            txtPassengerName.Text = SessionManager.CurrentPassengerName
+            txtPhone.Text = SessionManager.CurrentPassengerPhone
+        Else
+            txtPassengerName.Clear()
+            txtPhone.Clear()
+        End If
         txtSeat.Clear()
         selectedSeatNum = 0
         cboRoute.SelectedIndex = -1

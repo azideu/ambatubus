@@ -118,6 +118,28 @@ Public Class DatabaseHelper
                     cmd.ExecuteNonQuery()
                 End Using
 
+                ' Auto-migration: Add user account columns to Passengers if missing
+                Dim addUserAccountColsSql As String = "
+                    IF COL_LENGTH('dbo.Passengers', 'Username') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Passengers] ADD [Username] NVARCHAR(50) NULL
+                    END
+                    IF COL_LENGTH('dbo.Passengers', 'PasswordHash') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Passengers] ADD [PasswordHash] NVARCHAR(255) NULL
+                    END
+                    IF COL_LENGTH('dbo.Passengers', 'Email') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Passengers] ADD [Email] NVARCHAR(150) NULL
+                    END
+                    IF COL_LENGTH('dbo.Passengers', 'ICNumber') IS NULL
+                    BEGIN
+                        ALTER TABLE [dbo].[Passengers] ADD [ICNumber] NVARCHAR(20) NULL
+                    END"
+                Using cmd As New SqlCommand(addUserAccountColsSql, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
+
                 ' Create Bookings Table with UNIQUE constraint
                 Dim createBookingsSql As String = "
                     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bookings]') AND type in (N'U'))
@@ -184,4 +206,121 @@ Public Class DatabaseHelper
             MessageBox.Show("Database initialization failed: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    ''' <summary>
+    ''' Registers a new passenger user. Returns empty string on success, or an error message.
+    ''' </summary>
+    Public Shared Function RegisterUser(fullName As String, phone As String, username As String,
+                                        password As String, email As String, icNumber As String) As String
+        Try
+            Using conn As New SqlConnection(ConnString)
+                conn.Open()
+
+                Dim checkUserSql As String = "SELECT COUNT(*) FROM [dbo].[Passengers] WHERE Username = @Username"
+                Using cmd As New SqlCommand(checkUserSql, conn)
+                    cmd.Parameters.AddWithValue("@Username", username)
+                    If Convert.ToInt32(cmd.ExecuteScalar()) > 0 Then
+                        Return "That username is already taken. Please choose another."
+                    End If
+                End Using
+
+                Dim checkPhoneSql As String = "SELECT COUNT(*) FROM [dbo].[Passengers] WHERE Phone = @Phone"
+                Using cmd As New SqlCommand(checkPhoneSql, conn)
+                    cmd.Parameters.AddWithValue("@Phone", phone)
+                    If Convert.ToInt32(cmd.ExecuteScalar()) > 0 Then
+                        Return "A passenger with that phone number already exists."
+                    End If
+                End Using
+
+                If Not String.IsNullOrWhiteSpace(email) Then
+                    Dim checkEmailSql As String = "SELECT COUNT(*) FROM [dbo].[Passengers] WHERE Email = @Email"
+                    Using cmd As New SqlCommand(checkEmailSql, conn)
+                        cmd.Parameters.AddWithValue("@Email", email)
+                        If Convert.ToInt32(cmd.ExecuteScalar()) > 0 Then
+                            Return "That email address is already registered."
+                        End If
+                    End Using
+                End If
+
+                Dim insertSql As String = "
+                    INSERT INTO [dbo].[Passengers] (FullName, Phone, Username, PasswordHash, Email, ICNumber)
+                    VALUES (@FullName, @Phone, @Username, @Hash, @Email, @IC)"
+                Using cmd As New SqlCommand(insertSql, conn)
+                    cmd.Parameters.AddWithValue("@FullName", fullName)
+                    cmd.Parameters.AddWithValue("@Phone", phone)
+                    cmd.Parameters.AddWithValue("@Username", username)
+                    cmd.Parameters.AddWithValue("@Hash", HashPassword(password))
+                    cmd.Parameters.AddWithValue("@Email", If(String.IsNullOrWhiteSpace(email), CType(DBNull.Value, Object), email))
+                    cmd.Parameters.AddWithValue("@IC", If(String.IsNullOrWhiteSpace(icNumber), CType(DBNull.Value, Object), icNumber))
+                    cmd.ExecuteNonQuery()
+                End Using
+
+                Return String.Empty ' Success
+            End Using
+        Catch ex As Exception
+            Return "Registration failed: " & ex.Message
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Validates passenger login. Returns PassengerId on success, -1 on bad credentials, -2 if blocked.
+    ''' </summary>
+    Public Shared Function LoginUser(username As String, password As String) As Integer
+        Try
+            Using conn As New SqlConnection(ConnString)
+                conn.Open()
+                Dim sql As String = "
+                    SELECT PassengerId, PasswordHash, IsBlocked
+                    FROM [dbo].[Passengers]
+                    WHERE Username = @Username"
+                Using cmd As New SqlCommand(sql, conn)
+                    cmd.Parameters.AddWithValue("@Username", username)
+                    Using reader As SqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            If Convert.ToBoolean(reader("IsBlocked")) Then Return -2
+                            Dim storedHash As String = reader("PasswordHash").ToString()
+                            If storedHash.Equals(HashPassword(password), StringComparison.OrdinalIgnoreCase) Then
+                                Return Convert.ToInt32(reader("PassengerId"))
+                            End If
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Login error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        Return -1
+    End Function
+
+    ''' <summary>Gets a passenger's full name by ID.</summary>
+    Public Shared Function GetPassengerName(passengerId As Integer) As String
+        Try
+            Using conn As New SqlConnection(ConnString)
+                conn.Open()
+                Using cmd As New SqlCommand("SELECT FullName FROM [dbo].[Passengers] WHERE PassengerId = @Id", conn)
+                    cmd.Parameters.AddWithValue("@Id", passengerId)
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing AndAlso result IsNot DBNull.Value Then Return result.ToString()
+                End Using
+            End Using
+        Catch
+        End Try
+        Return String.Empty
+    End Function
+
+    ''' <summary>Gets a passenger's phone number by ID.</summary>
+    Public Shared Function GetPassengerPhone(passengerId As Integer) As String
+        Try
+            Using conn As New SqlConnection(ConnString)
+                conn.Open()
+                Using cmd As New SqlCommand("SELECT Phone FROM [dbo].[Passengers] WHERE PassengerId = @Id", conn)
+                    cmd.Parameters.AddWithValue("@Id", passengerId)
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot Nothing AndAlso result IsNot DBNull.Value Then Return result.ToString()
+                End Using
+            End Using
+        Catch
+        End Try
+        Return String.Empty
+    End Function
 End Class
